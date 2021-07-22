@@ -1,0 +1,2538 @@
+\chapter*{}
+
+%\newpage
+
+\Large{\textbf{Acerca de este libro}}
+
+\normalsize{En} el presente libro, apuntes, recojo  la parte de programación lineal que hubiese podido incluir en el libro de `álgebra lineal y estadística (avanzadas) para bachillerato', pero que no fue así, por lo que la presento aparte. 
+
+Son en total 4 libros, ``Cálculo infinitesimal (avanzado) para bachillerato'',  ``Álgebra lineal y geometría (avanzadas) para bachillerato'', ``Probabilidad y estadística (avanzadas) para bachillerato'' y ``Programación lineal (avanzada) para bachillerato'' que contemplan todo el temario actual de matemáticas de segundo de bachillerato en España, al menos ahora en 2021.
+
+
+La confección de estos textos es fruto de una larga experiencia como profesor de matemáticas de secundaria y para ello me he basado en mis más de treinta años de docencia  y en la de tantos autores que han contribuido a la explicación de estos conceptos a multitud de alumnos. He usado también apuntes y problemas de libros de texto de matemáticas así como apuntes y ejercicios encontrados en la web y pruebas de acceso a la universidad de distintas comunidades autónomas. Gracias a todos sus autores por su inestimable ayuda para la confección de estos textos, que espero que sirvan a alguien, y que escribo libre de todo tipo de derechos. 
+
+
+\vspace{5mm}
+\centering{
+\fcolorbox{black}{fondoblau}{
+\parbox{0.95\textwidth}{
+	\textit{Este material es un conjunto de apuntes personales que comparto gratuitamente en la red. Se agradecería la comunicación de la detección de cualquier error.}
+}}}
+\justify
+
+\emph{Este documento se comparte bajo licencia `Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)'}
+
+
+\begin{multicols}{2}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.4
+	\textwidth]{imagenes/licencia.png}
+	
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.3
+	\textwidth]{imagenes/firma.png}
+\end{figure}
+\end{multicols}
+
+\chapter*{}
+
+\vspace{-3cm}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.75\textwidth]{imagenes/img03.png}
+\end{figure}
+
+\vspace{4cm}
+\begin{center}
+
+\huge{\textbf{PROGRAMACIÓN LINEAL}} 
+
+\Large{(avanzada)}
+
+\huge{para Bachillerato}
+
+\vspace{2cm}
+\begin{flushright}
+	\normalsize{\emph{Ignacio Vallés Oriola}}
+\end{flushright}
+
+
+\end{center}
+
+%\chapter*{}
+
+
+
+
+
+\chapter{Programación lineal}
+
+	\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (6.5,.1);
+	\fill [left color=teal!50, right color=green!50] (6.5,0) rectangle (11.5,.1);
+	\end{tikzpicture}
+	
+\section{Introducción}
+
+	\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (3.5,.05);
+	\fill [left color=teal!50, right color=green!50] (3.5,0) rectangle (7.5,.05);
+	\end{tikzpicture}
+	\vspace{5mm}
+
+
+En 1946 comienza el largo período de la guerra fría entre la antigua Unión Soviética (URSS) y las potencias aliadas (principalmente, Inglaterra y Estados Unidos). Uno de los episodios más llamativos de esa guerra fría se produjo a mediados de 1948, cuando la URSS bloqueó las comunicaciones terrestres desde las zonas alemanas en poder de los aliados con la ciudad de Berlín, iniciando el \emph{``bloqueo de Berlín''}. A los aliados se les plantearon dos posibilidades: o romper el bloqueo terrestre por la fuerza, o llegar a Berlín por el aire. Se adoptó la decisión de programar una demostración técnica del poder aéreo norteamericano; a tal efecto, se organizó un gigantesco puente aéreo para abastecer a la ciudad: en diciembre de 1948 se estaban transportando 4500 toneladas diarias; en marzo de 1949, se llego a las 8000 toneladas, tanto como se transportaba por carretera y ferrocarril antes del corte de comunicaciones. En la planificación de los suministros se utilizó la programación lineal. El 12 de mayo de 1949 los soviéticos levantaron el bloqueo.
+
+Como paso previo a la programación lineal, explicaremos dos conceptos básicos para la posterior resolución de los problemas de programación lineal, que son: las inecuaciones de primer grado con dos incógnitas y los sistemas de inecuaciones de primer grado con incógnitas (de primero de bachillerato). Nos centraremos en la resolución de problemas de programación lineal con dos variables.
+
+La programación lineal es el campo de la programación matemática dedicado a maximizar o minimizar (optimizar) una función lineal, denominada función objetivo, de tal forma que las variables de dicha función estén sujetas a una serie de restricciones expresadas mediante un sistema de ecuaciones o inecuaciones también lineales. El método tradicionalmente usado para resolver problemas de programación lineal es el Método Simplex.
+
+Los fundadores de la programación lineal son George Dantzig, quien publicó el algoritmo simplex, en 1947, John von Neumann, que desarrolló la teoría de la dualidad en el mismo año, y Leonid Kantoróvich, un matemático de origen ruso, que utiliza técnicas similares en la economía antes de Dantzig y ganó el premio Nobel en economía en 1975. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.75\textwidth]{imagenes/img04.png}
+	\caption*{\begin{tiny}Imagen de los apuntes ``MATEMÁTICAS aplicadas a las CCSS II'', Alfonso Gonzalez.\end{tiny} }
+\end{figure}
+
+El ejemplo original de Dantzig de la búsqueda de la mejor asignación de 70 personas a 70 puestos de trabajo es un ejemplo de la utilidad de la programación lineal. La potencia de computación necesaria para examinar todas las permutaciones a fin de seleccionar la mejor asignación es inmensa (factorial de 70, 70!) ; el número de posibles configuraciones excede al número de partículas en el universo. Sin embargo, toma sólo un momento encontrar la solución óptima mediante el planteamiento del problema como una programación lineal y la aplicación del algoritmo simplex. La teoría de la programación lineal reduce drásticamente el número de posibles soluciones factibles que deben ser revisadas.
+
+\begin{center}\textcolor{orange}{\rule{150pt}{0.2pt}}\end{center}
+
+%\vspace{5mm} 
+La programación lineal es un modelo matemático muy útil para resolver problemas económicos, sociales y tecnológicos. A pesar de que la forma habitual para resolver este tipo de problemas es mediante el método del Simplex, en este nivel de enseñanza no se va a utilizar, pues corresponde a cursos más avanzados, únicamente se resolverán problemas con dos variables con métodos más sencillos.
+
+%\vspace{3mm} 
+Son aplicaciones de la programación lineal:
+
+\begin{itemize}
+\item El problema de la dieta, que trata de determinar en qué cantidades hay que mezclar diferentes piensos para que un animal reciba la alimentación necesaria a un coste mínimo.
+
+\item El problema del transporte, que trata de organizar el reparto de cualquier tipo de mercancías con un coste mínimo de tiempo o de dinero.
+
+\item El problema de la ruta más corta, que ayuda a ordenar las etapas de un viaje con el propósito de minimizar el recorrido.
+
+\item El problema de la planificación de la producción, pretende planificar la producción de una empresa de acuerdo con las materias primas disponibles para obtener máximos beneficios.
+\item Etc.
+\end{itemize}
+
+
+
+%\vspace{5mm}
+\section{Sistemas de inecuaciones de primer grado con dos incógnitas}
+\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (3.5,.05);
+	\fill [left color=teal!50, right color=green!50] (3.5,0) rectangle (7.5,.05);
+	\end{tikzpicture}
+	\vspace{10mm}
+
+\begin{theorem}
+.	Una ecuación lineal con dos incógnitas $ \ \boldsymbol{ax+by=c} \ $ es una \textbf{recta} en el plano.
+\end{theorem}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.9\textwidth]{imagenes/img05.png}
+\end{figure}
+
+\vspace{5mm}
+\begin{theorem}
+.	Una \textbf{inecación} lineal con dos incógnitas $ \ \boldsymbol{ax+by \le c} \ $ es una desigualdad: $\ <,\ \le, \ >,\ \ge\ $ y se corresponde con un \textbf{semiplano} a uno de los lados de la recta ($=$).
+
+\vspace{5mm}
+\begin{destacado}
+	Para averiguar cual de los dos semiplanos en que una recta divide al plano es la que representa a la inecuación dada, elegimos un punto en uno de los dos semiplanos (que no pertenezca a la recta)\footnote{Si el punto elegido es de la recta, lo que se verifica es la ecuación: ``la recta son los puntos del plano que verifican su ecuación''} y sustituimos sus coordenadas en la inecuación; si ésta se cumple, estamos en la zona adecuada; si no es así, la inecuación representa al otro semiplano.
+\end{destacado}
+\end{theorem}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.9\textwidth]{imagenes/img06.png}
+\end{figure}
+
+\vspace{5mm}
+El semiplano solución puede ser \textbf{abierto} si no contiene a la recta, responde a una inecuación estricta ($<,\ >$); o \textbf{cerrado} si sí contiene a la recta, responde a inecuaciones no estrictas ($\le,\ \ge$). En el caso de semiplanos abiertos, dibujaremos la recta que los limita de forma discontinua.
+
+\vspace{5mm}
+\begin{destacado}
+$\ $
+
+Para resolver una inecuación,
+
+\begin{adjustwidth}{20pt}{10pt}
+\vspace{4mm} $\triangleright \ $ Primero representaremos la recta (sustituimos la desigualdad por un signo igual) mediante una tabla de valores, bastará con buscar dos de sus puntos.
+
+\vspace{4mm} $\triangleright \ $ Elegimos un punto cualquiera que no esté en la recta y verificamos si ese punto cumple o no la inecuación de partida. Si la respuesta es sí, la zona donde está el punto es el semiplano solución, si es no, se trata de la zona opuesta.	
+
+$\ $
+\end{adjustwidth}
+
+\end{destacado}
+
+\vspace{5mm}
+\begin{example}
+.	Resuelve: $\quad x+y<3;\qquad -x+3y>4;\qquad 2x-y\le -2;\qquad x+y\ge 0$	
+\end{example}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{imagenes/img07.png}
+\end{figure}
+
+\vspace{5mm}
+
+\begin{theorem}
+.	Un \textbf{sistema de inecuaciones lineales con dos incógnitas}	 son dos o más de estas inecuaciones que se deben verificar simultáneamente.
+
+\vspace{5mm}
+\begin{destacado}
+$\ $
+Procedimiento para la resolución de un sistema de inecuaciones lineales con dos incógnitas:
+
+\vspace{4mm} $\triangleright\ $ Se resuelve cada inecuación por separado, es decir, para cada una de ellas dibujamos la recta y decidimos con que semiplano nos quedamos. (podemos usar flechas para señalarlo)\footnote{Como muestra el ejemplo siguiente.}
+
+\vspace{4mm} $\triangleright\ $ La solución del sistema, también llamada \textbf{región factible}, está formada por la zona \textbf{común} de todas las inecuaciones.
+
+$\ $	
+\end{destacado}
+\end{theorem}
+
+\vspace{5mm}
+\begin{example}
+. 	Resolver: $\qquad \begin{cases}
+\ 2x-y\ge -4 \\ \ x+2y>4 \\ \ x+y \le 5	
+\end{cases}	$
+
+\vspace{3mm}
+\rule{150pt}{0.1pt}
+\vspace{3mm}
+
+Dibujadas las tres rectas, analizamos una a una sus soluciones:
+
+\vspace{2mm} $2x-y\ge -4$, Observamos que el punto $P(0,0)$, al sustituirlo en la inecuación, proporciona el valor $0>-4$, por lo que sí verifica esta inecuación. Deseamos quedarnos con el semiplano de la recta $2x-y=-4$ en que está $P$ y lo indicamos mediante dos flechas \textcolor{teal}{verdes}.
+
+\vspace{2mm} Para la inecuación \textcolor{red}{$x+2y>4$}, dibujamos de modo discontinuo la recta (ya que la desigualdad no es estricta). Comprobamos que $P$ no verifica la inecuación ($0 \ngtr 4$) por lo que nos quedamos con la zona del plano en que no está $P$ y lo indicamos con flechas \textcolor{red}{rojas}.
+
+\vspace{2mm} La última inecuación, \textcolor{blue}{$x+y\le 5$}, $P$ sí verifica la inecuación, $0<5$, por lo que indicamos esta zona con flechas \textcolor{blue}{azul} en la recta correspondiente.
+
+\vspace{4mm} Finalmente, la zona que verifica las tres inecuaciones simultáneamente (por debajo de las rectas verde y azul y por arriba de la roja) es la destacada en la figura siguiente, es la \textbf{región factible}, en este caso  \emph{acotada}.
+
+\end{example}
+
+\vspace{5mm}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.9\textwidth]{imagenes/img08.png}
+\end{figure}
+
+%\vspace{5mm}%**************************
+Observaciones:
+
+--- $P$ no tiene por qué ser el mismo punto para todas las inecuaciones, se puede elegir un punto prueba para cada recta.
+
+--- \textbf{Las regiones factibles pueden ser acotadas, no acotadas o vacías}, como veremos en el siguiente ejercicio.
+
+\vspace{15mm} %***************************
+
+\begin{destacado}
+$\bigstar \ $ Antes de representar las rectas correspondientes a cada inecuación es conveniente tener las tablas de valores de todas ellas para poder elegir adecuadamente la escala. 
+
+$\bigstar \ $ Es muy conveniente poner el nombre al lado de cada recta, pronto querremos encontrar las coordenadas de los vértices del recinto factible y son las soluciones de las rectas que los forman.
+
+$\bigstar \ $ Se recomienda hacer el gráfico	lo suficientemente grande para poder discernir si dos rectas son o no paralelas.
+\end{destacado}
+
+\vspace{15mm} %*****************************
+\begin{ejemplo}
+\begin{ejre}
+Resuelve: $\quad a) \ \begin{cases}
+ \ x+2y\ge 6\\ \ 2x-y\le 3	\\ \ x\ge 1
+ \end{cases} \qquad
+ b) \ \begin{cases}
+  \ x+2y\le 6\\ \ 2x-y\le 3	\\ \ x\ge 3
+ \end{cases}$
+\end{ejre}
+
+\vspace{3mm}
+\rule{150pt}{0.1pt}
+\vspace{3mm}
+
+\end{ejemplo}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{imagenes/img09.png}
+\end{figure}
+
+
+\vspace{5mm}
+\begin{ejemplo}
+\begin{ejre}
+
+Para el siguiente recinto, determina las inecuaciones que lo conforman.
+	
+\end{ejre}
+\end{ejemplo}
+
+\vspace{5mm}
+\begin{multicols}{2}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{imagenes/img10.png}
+\end{figure}
+\begin{adjustwidth}{5pt}{2pt}
+Encontramos la ecuación de cada recta y, luego, decidiremos las zona que nos conviene.
+
+\vspace{7mm}
+--- $r_1$ es la recta vertical $x=2$, como queremos situarnos a su izquierda, la inecuación será $\boldsymbol{x\le 2}$. \textcolor{gris}{También podríamos haber decidir la zona tomando como punto prueba el origen $(0,0) \notin r_1$ y comprobar que sustituido en $r_1$, $0\le 2$, por lo que nos quedaríamos también con la zona izquierda de $x=2,\ \ x\le 2$.}
+\end{adjustwidth}
+\end{multicols}
+
+
+--- $r_2$ es la recta horizontal $y=1$, el semiplano superior será $\boldsymbol{y\ge 1}$.
+
+\vspace{2mm} --- Para determinar la recta $r_3$, tomaremos dos puntos del plano por donde pase. Hemos destacado varios puntos claros en el gráfico, para $r_3$ tomamos los puntos $R_{3a}\ (-2.0)$ y  $R_{3b}\ (2,4)$. La pendiente de la recta es $m=	\dfrac{4-0}{2-(-2)}=1$, \textcolor{gris}{(si se observa claramente que la abcisa en el origen es $2$, se puede concluir que la recta es $r_3:\ y=x+2$)}. La recta es de la forma $y=1\cdot x + k$, o bien, $y-x=k$. Determinamos $k$ exigiendo que pase por uno de los puntos anteriores, p.e., si exigimos que $(2,4)\in r_3:\ y-x=k \ \to \ (4)-(2)=k \ \rightarrow \ k=2$. La recta es $r_3:\ y-x=2$
+
+Tomando como punto prueba el origen de coordenadas: $\ 0-0=0<2$, luego queremos los puntos que hagan $\boldsymbol{y-x\le 2}$ (el trazado de la recta es continuo).
+
+También hubiésemos podido encontrar la recta $r_3:\ y=m\cdot x+n$ exigiendo que pase por $R_{3a}$ y $R_{3b}$ y resolviendo el sistema de dos ecuaciones lineales con dos incógnitas. Las soluciones hubiesen sido $m=1, \ n=2$
+
+La inecuación $y-x\le 2$ se pude presentar en varias formas, $y\le x+2;\ \ y-x-2\le 0,\ \ x-y+2\ge 0,\ etc$ 
+
+\vspace{2mm} --- Finalmente, $r_4$ es una función lineal, pasa por el origen, como también pasa por $R_4\ (-2,0)$, su pendiente es $m=\dfrac{4 \textcolor{gris}{-0}}{-2 \textcolor{gris}{-0}} =-2$, por lo que $r_4:\ y=-2x$ o $y+2x=0$
+
+Para decidir con que zona nos quedamos, al pasar $r_4$ por el origen, éste no es válido como punto prueba, hemos de tomar otro punto (que no pertenezca a $r_4$, por ejemplo el punto $(1,1)$. Como, sustituido en $r_4$ tenemos $(1)+2(1)=3>0$, tomamos como inecuación $\ \boldsymbol{y+2x\ge 0}$
+
+El sistema de inecuaciones que da lugar a este recinto es:
+
+$$\begin{cases}
+\ x\le 2 \\ \ y\ge 1 \\ \ y-x\le 2 \\ \ y+2x\ge 0$$	
+\end{cases}$$
+
+
+\vspace{10mm}
+\section{?`Qué es un problema de programación lineal?}
+\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (3.5,.05);
+	\fill [left color=teal!50, right color=green!50] (3.5,0) rectangle (7.5,.05);
+	\end{tikzpicture}
+	\vspace{10mm}
+
+Nada mejor que empezar con un ejemplo:
+
+\vspace{5mm}
+\begin{destacado}
+\begin{adjustwidth}{10pt}{10pt}
+\vspace{2mm}
+\textit{Vamos a invertir en dos productos financieros A y B. la inversión en B será, al menos, de $3\, 000$ \euro $\,$ y no se invertirá en A más del doble que en B. El producto A proporciona un beneficio del 10\% y B del 5\%. Si disponemos de un máximo de $12\, 000$ \euro, ?`cuánto se debe invertir en cada producto para maximizar el beneficio? }
+\vspace{2mm}
+\end{adjustwidth}
+\end{destacado}
+
+\vspace{5mm}
+$\triangleright \ $ Selección de las incógnitas del problema: 
+
+\hspace{1cm} --- $\ x:\ $ cantidad de dinero invertida en el producto financiero A.
+
+\hspace{1cm} --- $\ y:\ $ cantidad de dinero invertida en el producto financiero B.
+
+$\triangleright \ $ \textbf{Función objetivo}, función a optimizar (en este caso buscamos un \emph{`máximo'}).
+
+\hspace{1cm} --- $\ z=f(x,y)=0.10x+0.05y$, máximo.
+
+$\triangleright \ $ \textbf{Restricciones}, condiciones que deben cumplir las incógnitas (variables) del problema:
+
+\begin{table}[H]
+\begin{tabular}{lll}
+$\quad$& --- La inversión e B será, al menos, de 3000 \euro :& $\quad y\ge 3000$ \\
+$\quad$& --- No se invertirá en A más del doble que en B :& $\quad x\le 2y$ \\
+$\quad$& --- Disponemos de un máximo de 12000 \euro :& $\quad x+y\le 12000$
+\\ $\quad$ & \small{--- Obviamente, no se admite invertir cantidades negativas (*):} &$\quad x\ge 0;\ \ y\ge 0$
+\end{tabular}
+\end{table}
+
+(*): \normalsize{\emph{ Estas dos restricciones son muy frecuentes en programación lineal, limitan la región factible al primer cuadrante}}
+
+
+\vspace{4mm} \normalsize{Resumiendo, nuestro problema es:}
+
+\begin{destacado}
+Función objetivo: $\ f(x,y)\ =\ 0.10x+0.05y,\ \  max; $
+$\qquad$
+Restricciones: $\ \begin{cases}
+\ y\ge 3000 \\
+\ x\le 2y \\
+\ x+y\le 12000 \\
+\ x\ge 0;\ \ y\ge 0	
+\end{cases}$	
+\end{destacado}
+
+Haciendo unas tablas de valores para las rectas $\ x=2y\ $ y $\ x+y=12000\ $, representamos las inecuaciones (restricciones) para obtener el recinto de soluciones factibles que presentamos en la siguiente figura. Los vértices los hemos obtenido intersectando las rectas correspondientes.
+
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{imagenes/img11.png}
+\end{figure}
+
+\vspace{5mm} \underline{Observaciones:}
+
+\renewcommand{\labelitemi}{$\checkmark$}
+\begin{itemize}
+
+\item El recinto que determina las solución del sistema de inecuaciones se denomina \textbf{región factible} y está formado por todos los puntos del plano que verifican todas y cada una de las restricciones. Estos puntos se llaman soluciones factibles. Entre estas soluciones factibles se encontrará, en su caso, la solución del problema que se denominará \textbf{solución óptima}.
+\item Antes de resolver el sistema de inecuaciones lineales es conveniente tener a la vista las tablas de todas las rectas a dibujar para poder elegir bien la escala de ls ejes. Cuando se trace una recta se debe escribir de inmediato su ecuación junto a ella.
+\item En ocaciones, al establecer las restricciones de un problema, aparecen algunas que no aportan información adicional al sistema. A estas restricciones se les llama condiciones redundantes o superfluas (en el ejemplo, la restricción $\ y\ge 0 \ $ es \emph{superflua}, no aporta ninguna información adicional, ya tenemos que $\ y\ge 3000 $). 
+\item Es muy frecuente en problemas de programación lineal no aceptar soluciones negativas, las restricciones $x\ge 0$ e $y\ge 0$ reducen el recinto de soluciones factibles al primer cuadrante.
+\item Un problema de programación lineal puede tener ninguna, una o infinitas soluciones óptimas.
+\item La región factible puede ser acotada o no acotada o incluso no existir (vacía).
+\item Si la región factible es acotada, el problema siempre tiene al menos una solución óptima. Si no es acotada, el problema puede no tener solución alguna.
+		
+\end{itemize}
+
+\vspace{5mm} %*******************************
+La solución óptima al problema ha de estar en  alguno de los infinitos puntos del recinto de soluciones factibles. Para encontrarla(s) hay dos métodos que veremos en la siguiente sección. Antes de ello, teoricemos lo aprendido hasta aquí:
+
+\vspace{10mm}%********************
+\begin{definition}
+. La \emph{programación lineal} es un conjunto de técnicas matemáticas que pretende la \emph{optimización} (búsqueda de un máximo o un mínimo) de una función lineal de varias variables, llamada \emph{función objetivo}, cuyas variables deben cumplir diversas \emph{restricciones}, expresadas por medio de inecuaciones lineales. El objetivo principal es minimizar o maximizar (optimizar) la \emph{función objetivo}, siempre y cuando esta función cumpla las \emph{restricciones} a las que está sujeta.	
+
+\vspace{2mm} Los problemas de programación lineal más habituales se expresan de  la siguiente manera:
+
+\vspace{4mm} \underline{Función objetivo}:
+
+$$z=f(x_1,x_2, \cdots ,x_n)=c_1x_1+c_2x_2+\cdots +c_nx_n \; \  \ max\ o \ min$$
+
+\underline{Restricciones}:
+
+$$\begin{cases}
+\ a_{11}x_1+a_{12}x_2+\cdots + a_{1n}x_n \ge \ \textcolor{gris}{(\le)} \ b_1 \\
+\ a_{21}x_1+a_{22}x_2+\cdots + a_{2n}x_n \ge \ \textcolor{gris}{(\le)} \ b_2 \\	
+\ \quad \cdots \quad \cdots \quad \cdots \quad \cdots \quad \cdots \quad \cdots \quad \cdots \\
+\ a_{m1}x_1+a_{m2}x_2+\cdots + a_{mn}x_n \ge \ \textcolor{gris}{(\le)} \ b_m \\
+\end{cases}$$
+
+
+Siendo:
+
+\begin{adjustwidth}{20pt}{10pt}
+--- $c_1, c_2, \cdots , c_n$ son números reales y se llaman coeficientes de beneficio o costo. Son datos de entrada del problema
+
+--- $x_1, x_2, \ \cdots \ , x_n$ son las variables de decisión:.
+
+--- La función objetivo: $z$.
+
+--- Las inecuaciones lineales expresadas en función de las variables forman las restricciones, las podemos encontrar con el signo $\le$ o $\ge$.
+
+--- Los coeficientes $a_{ij}$ son también números reales conocidos y se llaman coeficientes tecnológicos.
+
+--- Los términos $b_1, b_2, \cdots , b_m$  constituyen el vector de disponibilidades o requerimientos y son también datos conocidos del problema.
+
+--- Al conjunto de valores de $(x_1, x_2, x_3, \cdots , x_n)$ que satisfacen simultáneamente todas las restricciones se le denomina región factible. Cualquier punto dentro de la región factible representa un posible programa de acción. La solución óptima es el punto de la región factible que hace máxima o mínima la función objetivo.
+\end{adjustwidth}
+
+\end{definition}
+
+\vspace{5mm}
+
+\begin{definition}
+.
+Un Problema de \emph{programación lineal para dos variables} consiste en \emph{optimizar} (maximizar o minimizar) la \emph{función objetivo}:
+
+$$z = F (x, y) = c_1x + c_2y$$ 
+
+sujeta a las \emph{restricciones}:	
+
+$$\begin{cases}
+	\ a_{11} x_1+a_{12} x_2 \le \textcolor{gris}{(\ge)} \ b_1  \\
+	\ a_{21} x_1+a_{22} x_2 \le \textcolor{gris}{(\ge)} \ b_2  \\
+	\ \cdots \quad  \cdots \quad \cdots \quad \cdots \quad \\
+	\ a_{m1} x_1+a_{m2} x_2 \le \textcolor{gris}{(\ge)} \ b_m  \\
+\end{cases}$$
+
+\end{definition}
+
+\section[Métodos de resolución de un problema de programación lineal]{Métodos de resolución de un problema de programación lineal\sectionmark{Métodos de resolución}} \sectionmark{Métodos de resolución}
+\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (3.5,.05);
+	\fill [left color=teal!50, right color=green!50] (3.5,0) rectangle (7.5,.05);
+	\end{tikzpicture}
+	\vspace{10mm}
+
+\begin{theorem}	
+.	Existen dos métodos para la resolución de los problemas de programación lineal con dos variables: el \textbf{método gráfico o de las rectas de nivel} y el \textbf{método analítico o de los vértices del recinto}. El primero de ellos es más general y es útil en cualquier situación mientras que el segundo, el analítico, solo lo usaremos ante recintos factibles acotados.
+
+\begin{itemize}
+\item Método gráfico. Curvas de nivel de la función objetivo:
+	\begin{itemize}
+	\item Las curvas de nivel de la función objetivo $z= c_1x+c_2y$, son aquellas expresiones en las que la función objetivo toma un determinado valor constante.
+	\item Se parte de la recta de beneficio nulo, $z=c_1x+c_2y=0$, esta recta se mueve paralelamente buscando barrer la región factible de soluciones. La recta paralela a la anterior que toque a la región factible y que tenga el mayor valor o menor valor (dependiendo de si se está maximizando o minimizando) de todas las posibles será la que proporcione la solución óptima:
+		\begin{itemize}
+		\item Si esta recta toca en un solo punto a la región factible entonces hay solución óptima única.
+		\item Si esta recta toca en varios puntos a la región factible entonces la solución óptima es infinita, está formado por todos los puntos de la recta o segmento que pasa por esos puntos en que toca la recta de nivel.
+		\item Si la región factible no está acotada y el valor de estas rectas puede crecer o decrecer (según si se está maximizando o minimizando) infinitamente, entonces no hay solución óptima.
+		\end{itemize}
+	\end{itemize}
+\item Método analítico: Teorema Fundamental de la Programación Lineal:
+	\begin{itemize}
+	\item Si existe una única solución que optimice la función objetivo, esta se encuentra en un vértice de la región factible (principio de las esquinas).
+	\item Si la función objetivo toma el mismo valor óptimo en dos vértices (consecutivos) de la región factible, también toma ese mismo valor en los infinitos puntos del segmento que determinan esos dos vértices. En este caso el problema tiene infinitas soluciones .
+	\item Si la región factible no está acotada, el problema lineal puede carecer de solución. En el caso de que exista, se encuentra en los vértices de la región factible.
+	\end{itemize}
+\end{itemize}
+\end{theorem}	
+
+\vspace{4mm}
+Seguimos con nuestro problema anterior \textcolor{gris}{(invertir 12000 \euro $\,$ en dos productos financieros A y B)} y vamos a resolverlo por los dos métodos:
+
+\vspace{10mm} %*****************************
+$\Longrightarrow \ $ \vspace{5mm} \textbf{Resolución del problema ejemplo por el método gráfico:}
+
+La función objetivo, beneficios obtenidos al invertir $x\to A$ e $y\to B$ era $\ z=0.1 x+0.05 y$, de la que había que calcular la solución que conduzca a beneficios \emph{máximos}.
+
+La \textcolor{red}{recta de beneficio nulo} es \textcolor{red}{$\ z=0.10x+0.05y=0$} que representamos de color rojo en la figura siguiente. La tabla de valores aparece en la figura adjunta así como varias \textcolor{teal}{rectas de nivel} (en verde, paralelas a la de beneficio nulo) que pasan por dentro del recinto de soluciones factibles. Al lado de cada una de estas rectas hemos colocado su ecuación sin más que saber un punto por donde pasan: $0.10x+0.05y=k$, por ejemplo, la recta de nivel que pasa por $C(8000,4000)$ es \textcolor{teal}{$\ 0.1\cdot 8000 + 0.05 \cdot 4000 = 1000$}
+
+\vspace{5mm} %******************************
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.95\textwidth]{imagenes/img12.png}
+\end{figure}
+
+\vspace{5mm} %******************************
+
+\begin{destacado}	
+Como se observa en la figura, \emph{la solución al problema es única:	hay que invertir 8000 \euro $\,$  en A y 4000 \euro $\,$ en B para, cumpliendo todos los requisitos (restricciones) del problema obtener un beneficio máximo de 1000 \euro.}
+\end{destacado}	
+
+\vspace{1cm}%*************************
+$\Longrightarrow \ $ \textbf{Resolución del problema ejemplo por el método analítico:}
+
+
+\vspace{5mm}
+\begin{theorem}
+.	\textbf{Teorema fundamental de la Programación lineal.}
+
+\emph{En un problema de Programación lineal con dos variables con \underline{región factible acotada}, si existe una única solución que optimice la función objetivo, ésta se encuentra en un punto extremo, es decir, en un \textbf{vértice}, de la región factible, nunca en el interior de dicha región}.
+
+--- Si la función objetivo toma el mismo valor óptimo en dos vértices, también tomará el mismo valor óptimo en el segmento que une ambos vértices. Habra, pues, infinitas soluciones.
+
+--- En el caso de que la región factible no esté acotada, la función objetivo no alcanza necesariamente un valor óptimo concreto, pero si lo alcanzara, este también se encontraría en uno de los vértices de dicha región.
+\end{theorem}
+
+\vspace{5mm} Por tanto, si la región factible está acotada, únicamente tendremos que evaluar la función objetivo en cada uno de los vértices de la región factible y escoger aquel que maximice o minimice dicha función.
+
+\vspace{5mm} %*****************************
+
+%\begin{figure}[H]
+	%\centering
+	%\includegraphics[width=.75\textwidth]{imagenes/img13a.png}
+%\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.75\textwidth]{imagenes/img13b.png}
+\end{figure}
+
+\begin{destacado}
+\begin{small}	Como se observa en la figura, \emph{la solución al problema es única:	hay que invertir 8000 \euro $\,$  en A y 4000 \euro $\,$ en B para, cumpliendo todos los requisitos (restricciones) del problema obtener un beneficio máximo de 1000 \euro.} \end{small}
+\end{destacado}	
+
+\vspace{3mm}
+Continuamos con unos ejemplos de problemas matemáticos (sin texto) de programación lineal para asentar los métodos de resolución que acabamos de ver. Analizaremos problemas de \textbf{regiones acotadas (son válidos los dos métodos: analítico y gráfico)} con soluciones única e infinitas, continuamos con \textbf{regiones no acotadas (solo es válido el método gráfico)} y acabaremos con regiones vacías (no hay solución, ningún punto cumplirá las restricciones del problema).
+
+\subsection{Ejercicios resueltos: métodos de resolución de los problemas de programación lineal.}
+
+\vspace{3mm}	
+\begin{ejemplo}
+\begin{ejre}
+Maximiza y minimiza la función objetivo $\ z=x+2y$ sujeta a las restricciones 	$\ x\ge 2;\ \ y\ge 0;\ \ x+2y\le 11;\ \ 6x-5y\ge -2;\ \ 4x-9y\le 10$.
+\end{ejre}
+\end{ejemplo}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cccccccc}
+\multicolumn{2}{c}{\textbf{x+2y=11}} & \textbf{} & \multicolumn{2}{c}{\textbf{6x-5y=-2}} & \textbf{} & \multicolumn{2}{c}{\textbf{4x-9y=10}} \\
+\multicolumn{1}{c|}{x} & y & $\quad$ & \multicolumn{1}{c|}{x} & y & $\quad$ & \multicolumn{1}{c|}{x} & y \\ \cline{1-2} \cline{4-5} \cline{7-8} 
+\multicolumn{1}{c|}{11} & 0 &  & \multicolumn{1}{c|}{3} & 4 &  & \multicolumn{1}{c|}{2.5} & 0 \\
+\multicolumn{1}{c|}{3} & 8 &  & \multicolumn{1}{c|}{0} & 0.4 &  & \multicolumn{1}{c|}{7} & 2
+\end{tabular}
+\end{table}
+
+%\vspace{4mm}
+\begin{small}
+Para la recta x+2y=100, probamos con el origen O(0,0) y observamos que $(0)+2(0)=0\le 11$, sí nos interesa este punto por lo que nos quedamos con este semiplano y lo indicamos con una flecha azul en el gráfico.
+
+
+Procedemos del mismo modo con todas las restricciones para obtener el recinto acotado (cerrado) de soluciones factibles que destacamos en amarillo en la figura siguiente.\end{small}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.75\textwidth]{imagenes/img14.png}
+	\caption*{\small{Ejercicio resuelto 1.3-1/2}}
+\end{figure}
+
+
+\normalsize{El} recinto es acotado (cerrado). El método más rápido es el \textbf{método analítico}: tabularemos la función objetivo en los vértices del recinto (calculados como intersección de las rectas que los forman). 
+
+Exponemos, como ejemplo, como encontrar las coordenadas del vértice C. Es la intersección de las rectas $6x-5y=-2$ y $x+2y=11$
+
+
+\vspace{2mm}
+$C:\ \ \begin{cases}
+ \ x+2y=11 & (6)\\ \ 6x-5y=-2 &(-1)	
+ \end{cases} 
+ \to 
+ \begin{cases}
+ \ 6x+12y=66 \\ -6x+5y=2 
+ \end{cases}
+ \text{sumando: } \ 17y=68 \to y=4 \Rightarrow x=3 
+ $
+ 
+ Luego, $C(3,4)$. Así, con el resto de vértices. Es posible que algunos de ellos hayan salido directamente al hacer la tabla de valores, en este caso no sería necesario volverlos a calcular.
+ 
+
+\begin{multicols}{2}
+\begin{table}[H]
+\centering
+\begin{tabular}{cc|c|cc}
+ & \textbf{x} & \textbf{y} & \textbf{z} & \textbf{} \\ \cline{2-4}
+\textbf{A} & 2 & 0 & 2 & \textbf{$\to $ min} \\
+\textbf{B} & 2 & 2.8 & 7.6 &  \\
+\textbf{C} & 3 & 4 & 11 & \textbf{$\to $ max} \\
+\textbf{D} & 7 & 2 & 11 & \textbf{$\to $ max} \\
+\textbf{E} & 2.5 & 0 & 2.5 & 
+\end{tabular}
+\end{table}
+
+\begin{destacado}
+Para la función objetivo $z$,
+
+El \textbf{mínimo}, de valor $z=2$, se encuentra para los valores $x=2$ e $y=0$.
+
+El \textbf{máximo}, de valor $z=11$, se encuentra en los infinitos puntos que unen el extremo de extremos $C(3,4)$ y $D(7,2)$.
+\end{destacado}
+\end{multicols}
+
+Aunque no es necesario, volveremos a resolver el problema por el \textbf{método gráfico}:
+
+Para aplicar este método dibujaremos (en rojo en la figura siguiente) la función objetivo nula: $x+2y=0$. Podemos tomar como valores para dibujarla el $(0,0)$ y el $(2,-1)$.
+
+Seguidamente, dibujaremos rectas paralelas a ésta que pasen por puntos del recinto de soluciones factibles, son las rectas de nivel (en verde en la figura). Escribiremos las ecuaciones de estas rectas para ver los valores que va tomando la función objetivo a medida que las desplazamos por el recinto. \textcolor{gris}{Por ejemplo, las recta de nivel $x+2y=k$ que pasa por el vértice $B(2,2.8)$ es: $(2)+2(2.8)=k \to k=7.6$; por lo que la recta tendrá por ecuación: $x+2y=7.6$.} Hacemos esto con varias rectas hasta encontrar la que proporciona el valor máximo y el mínimo.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.75\textwidth]{imagenes/img15.png}
+	\caption*{\small{Ejercicio resuelto 1.3-2/2}}
+\end{figure}
+
+\vspace{5mm}%*****************************
+\normalsize{De} la figura, se observa:
+
+\begin{destacado}
+Para la función objetivo $z$,
+
+El \textbf{mínimo}, de valor $z=2$, se encuentra para los valores $x=2$ e $y=0$.
+
+El \textbf{máximo}, de valor $z=11$, se encuentra en los infinitos puntos que unen el extremo de extremos $C(3,4)$ y $D(7,2)$.
+\end{destacado}
+
+
+\vspace{15mm}	
+\begin{ejemplo}
+\begin{ejre}
+Maximiza y minimiza la función objetivo $\ z=5x+2y$ sujeta a las restricciones 	$\ 2x-y\ge 0;\ \ x-2y\le 0; \ \ x+y\ge 2$.
+\end{ejre}
+\end{ejemplo}
+
+\vspace{5mm}
+Dibujamos las restricciones e indicamos con flechas azules los semiplanos que las verifican. El recinto de soluciones factibles es abierto (no acotado) por lo que se hace necesario utilizar el método gráfico.
+
+\vspace{10mm}
+\begin{multicols}{2}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{imagenes/img21.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.45\textwidth]{imagenes/img22.png}
+\end{figure}	
+\end{multicols}
+\vspace{5mm}
+
+\begin{destacado}
+En esta ocasión tenemos un recinto no acotado (abierto). Al trazar rectas de nivel observamos que la \textbf{función objetivo alcanza un mínimo, de valor 6 en el  punto $S(2/3,4/3)$. La función objetivo no alcanza el máximo en este recinto}.
+\end{destacado}
+
+
+%***************************\vspace{5mm}	
+\begin{ejemplo}
+\begin{ejre}
+Maximiza y minimiza la función objetivo $\ z=x+y$ sujeta a las restricciones 	$\  2x-y\ge 0;\ \ x-2y\le 0;\ \ x+y\ge 2; \ \ x+y\ge 2$.
+\end{ejre}
+\end{ejemplo}
+
+
+%\vspace{5mm}
+\begin{multicols}{2}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.45\textwidth]{imagenes/img19.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.45\textwidth]{imagenes/img20.png}
+\end{figure}	
+\end{multicols}
+\vspace{5mm}
+
+
+\begin{destacado}
+En esta ocasión tenemos un recinto no acotado (abierto) con la función objetivo paralela a uno de los lados del recinto. Al trazar rectas de nivel observamos que la \textbf{función objetivo alcanza un mínimo, de valor 2,  en los infinitos puntos del segmento que une los puntos $S(2/3,4/3)$ y $T(4/3,2/3)$. La función objetivo no alcanza el máximo en este recinto}.
+\end{destacado}
+
+
+%***************************\vspace{5mm}	
+\begin{ejemplo}
+\begin{ejre}
+Maximiza y minimiza la función objetivo $\ z=x-y$ sujeta a las restricciones 	$\ x\ge 0;\ \ y\ge 0;\ \ 2x-y\ge 0;\ \ x-2y\le 0$.
+\end{ejre}
+\end{ejemplo}
+
+\vspace{5mm}
+\begin{multicols}{2}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.45\textwidth]{imagenes/img17.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{imagenes/img18.png}
+\end{figure}	
+\end{multicols}
+\vspace{5mm}
+
+\begin{destacado}
+Como podemos continuar desplazando infinitamente las rectas de nivel a la izquierda (valores cada vez menores de z) y a la derecha (valores cada vez mayores de z) de la función objetiva objetiva nula	 (z=0), esta función objetivo \textbf{no alcanza ni el máximo ni el mínimo en este recinto abierto (no acotado)}. No hay solución.
+\end{destacado}
+
+	
+%***************************	
+\vspace{5mm}	
+\begin{ejemplo}
+\begin{ejre}
+Maximiza y minimiza la función objetivo $\ z=x+y$ sujeta a las restricciones 	$\ x\ge 0;\ \ y\ge 0;\ \ 2x-y\le 0;\ \ x-2y\ge 0$.
+\end{ejre}
+\end{ejemplo}
+
+\vspace{5mm}
+\begin{multicols}{2}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.45\textwidth]{imagenes/img16.png}
+\end{figure}
+
+$\quad$  %****************
+
+$\quad$  %****************
+
+\begin{destacado}
+En este caso obtenemos una 
+\textbf{región de soluciones factibles vacía}, por lo que \textbf{el problema carece de soluciones}.
+
+\vspace{2mm}
+
+Ningún par de valores $(x.y)$ satisfacen todas las restricciones del problema.	
+\end{destacado}
+\end{multicols}
+	
+	
+\section{Tipos de problemas en programación lineal}
+\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (3.5,.05);
+	\fill [left color=teal!50, right color=green!50] (3.5,0) rectangle (7.5,.05);
+	\end{tikzpicture}
+	\vspace{10mm}	
+
+$\Longrightarrow \ $ Atendiendo a cómo es la región factible y cómo son las soluciones óptimas de esta, podemos clasificar los problemas como:
+
+\begin{adjustwidth}{50pt}{10pt}
+$\triangleright \ $ región factible acotada.
+
+\hspace{1cm} $\triangleright \ $  solución óptima única: \textcolor{gris}{ejercicio resuelto 1.3.}
+
+\hspace{1cm} $\triangleright \ $  solución óptima múltiple: \textcolor{gris}{ejercicio resuelto 1.3.}
+
+$\triangleright \ $  región factible no acotada.
+
+\hspace{1cm} $\triangleright \ $  solución óptima única: \textcolor{gris}{ejercicio resuelto 1.4.}
+
+\hspace{1cm} $\triangleright \ $  solución óptima múltiple: \textcolor{gris}{ejercicio resuelto 1.5.}
+
+\hspace{1cm} $\triangleright \ $  sin solución óptima: \textcolor{gris}{ejercicio resuelto 1.6.}
+
+$\triangleright \ $  región factible vacía: \textcolor{gris}{ejercicio resuelto 1.7.}
+\end{adjustwidth}
+		
+\vspace{5mm} $\Longrightarrow \ $ Podemos clasificar los problemas de programación lineal según la modelización de estos en los siguientes tipos:
+
+\begin{adjustwidth}{50pt}{10pt}
+
+$\triangleright \ $ Problema de producción: combinar recursos que maximicen beneficios o minimicen costes.
+
+$\triangleright \ $ Problema de la dieta: determinar la mejor combinación de alimentos que debe incluir una dieta con mínimo coste.
+
+$\triangleright \ $ Problema del transporte: minimizar los costes de distribución y los tiempos empleados en una distribución de mercancías.
+\end{adjustwidth}
+
+
+
+\section{Aplicaciones de la programación lineal}
+\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (3.5,.05);
+	\fill [left color=teal!50, right color=green!50] (3.5,0) rectangle (7.5,.05);
+	\end{tikzpicture}
+	\vspace{10mm}
+
+\begin{myalertblock}{Técnicas para la resolución de un problema de programación lineal:}
+
+
+El paso más difícil es el de ``modelizar el problema'', escribirlo en forma de ecuaciones e inecuaciones, para ello usaremos tablas para organizar los datos, cuando haya muchos, en caso de que sean pocos los datos se puede plantear el problema directamente. Después de organizar los datos se escogerán las incógnitas (qué representan) y se plantearán la función objetivo y las restricciones. Los pasos que se seguirán para esto serán los siguientes:
+
+\begin{enumerate}
+\item Se emplearán tablas en las que se irán ordenando los datos. Los pasos para completar la tabla serán:
+	\begin{enumerate}
+	\item Elegir las variables de decisión o incógnitas, que serán siempre 2.
+	\item Organizar los datos de las restricciones en la tabla en función de esas
+	incógnitas.
+	\item Organizar los recursos, colocarlos en la tabla y determinar el tipo de desigualdad de cada uno de ellos.
+	\item Organizar los costes o beneficios de cada incógnita (coeficientes de la
+	función objetivo) y determinar si se desea minimizar o maximizar.
+	\end{enumerate}
+\item Una vez organizados los datos se plantearán las restricciones y la función objetivo, teniendo en cuenta que muchas veces hay que añadir las restricciones de la no negatividad de las variables \textcolor{gris}{(en la mayoría de los problemas no se aceptarán soluciones negativas, esto reducirá el problema a trabajar en el primer cuadrante)}.
+\item Caso particular de modelización del problema del transporte:  es un poco diferente a la del resto de problemas y la veremos en la subsección \ref{transporte}.
+\end{enumerate}
+\end{myalertblock}
+
+\vspace{5mm}
+La Programación lineal surgió como aplicación a cuestiones de carácter logístico y militar pero es en la industria y la economía donde, posteriormente, ha encontrado sus aplicaciones más importantes.
+
+La Programación lineal permite resolver problemas de mezclas, nutrición de animales, distribución de factorías, afectación de personal a distintos puestos de trabajo, almacenaje, planes de producción, escalonamiento de la fabricación, problemas de circulación, planes de optimización de semáforos, estudio de comunicaciones internas, etc.
+
+Veamos, en los siguientes apartados,  algunas de las aplicaciones más importantes.
+
+
+	\subsection{El problema de la planificación de la producción}
+	\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (3.5,.01);
+	\fill [left color=teal!50, right color=green!50] (3.5,0) rectangle (7.5,.01);
+	\end{tikzpicture}
+	\vspace{10mm}
+	
+
+\begin{example}
+.	Una empresa envasadora de alimentos recibe diariamente 700 Kg de café  `Arábica' - A y 800 kg de café `Robusta' - R, con ellos hace dos mezclas: la mezcla `Normal' - N consta de 2 partes de café tipo A y una de café R y por ella gana 2.2 \euro $\,$ por kg; la mezcla `Superior' - S tiene una parte de café A y dos de café R por la que obtiene unos beneficios de 2.6 \euro $\,$ por kg.
+
+\vspace{2mm}
+Encuéntrese las cantidades de cafés mezcla que la empresa debe hacer para maximizar las ganancias.
+\end{example}
+
+Disponemos, al día, de 700 kg A y 800 Kg de R para fabricar $\boldsymbol{x}$ kg de mezcla `Normal' e $\boldsymbol{y}$ de mezcla `Superior'. Disponemos los componentes de cada mezcla, las existencias de los materiales, A y R, y los beneficios de la producción N y S en una tabla. \textcolor{gris}{(Para hacer mezcla N, si usamos 2kg de café A y 1kg de café R, obtenemos 3 kg de N. Por cada kg de N, pues, necesitaremos 2/3 de A y 1/3 de R. Para la mezcla S ocurre algo similar, par cada kg de S necesitaremos 1/3 kg de café A y 2/3 kg de B).}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll|c|c|c}
+\textbf{Productos \textbackslash Materiales} & $\ \ $ & \textbf{A} & \textbf{B} & \textbf{Beneficios} \\ \hline
+\multicolumn{1}{c}{\textbf{N $\to \ \ \boldsymbol{x}$ kg}} &  & $\quad 2x/3 \quad$ & $\quad x/3 \quad$ & $\quad 2.2x \quad $ \\ \hline
+\multicolumn{1}{c}{\textbf{S $\to \ \ \boldsymbol{y}$ kg}} &  & $y/3$ & $2y/3$ & $2.6y$ \\ \hline
+\textbf{Existencias de materiales} &  & 700 kg & 800 kg &  \\ \cline{3-4}
+\end{tabular}
+\end{table}
+
+$\triangleright\ $ Función objetivo: $\quad z=f(x,y)=2.2x+2.6y;\ $ maximizar
+
+$\triangleright\ $ Restricciones:
+
+\begin{adjustwidth}{20pt}{10pt}
+
+Existencias café A: $\quad 2x/3+y/3\le 700 \ \to \ 2x+y\le 2100$
+
+Existencias café R:  $\quad x/3+2y/3\le 800 \ \to \ x+2y\le 2400$
+
+No se acepta fabricar cantidades negativas para N y S: $\quad x\ge 0 \ ; \quad y\ge 0$
+
+$ \begin{cases}
+\  2x+y\le 2100 \\
+\  x+2y\le 2400 \\
+\  x\ge 0 \ ; \ \ \  y\ge 0	
+ \end{cases}$
+	
+\end{adjustwidth}
+
+Construimos las tablas para las rectas que proporcionaran las soluciones a las inecuaciones.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[H]
+\centering
+\begin{tabular}{cccccll}
+\multicolumn{2}{c}{\textbf{2x+y=2100}} & $\qquad$ & \multicolumn{2}{c}{\textbf{x+2y=2400}} & \multirow{4}{*}{$\qquad$} & \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Las restricciones\\ $x\ge 0$ e $y\ge 0$\\ limitan el recinto\\ de soluciones factibles\\ al primer cuadrante.\end{tabular}} \\
+\multicolumn{1}{c|}{x} & y &  & \multicolumn{1}{c|}{x} & y &  &  \\ \cline{1-2} \cline{4-5}
+\multicolumn{1}{c|}{0} & 2100 &  & \multicolumn{1}{c|}{0} & 1200 &  &  \\
+\multicolumn{1}{c|}{1050} & 0 &  & \multicolumn{1}{c|}{2400} & 0 &  & 
+\end{tabular}
+\end{table}
+
+Representamos las restricciones e identificamos la solución (región factible).
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.75\textwidth]{imagenes/img23b.png}
+\end{figure}
+
+\emph{Obtenemos un recinto cerrado (región factible acotada) por lo que usaremos el método analítico para resolver este problema}. Hemos de calcular los vértices del recinto:
+
+Los vértices A, B y D son directos de las tablas que hemos hecho para dibujar las rectas. El vértice C lo calculamos como intersección de las rectas que lo forman.
+
+Ahora, disponemos todos los vértices del recinto en una tabla y, para cada uno de ellos, calculamos los beneficios obtenidos con esta producción. 
+
+Cálculo del vértice C (A, B y D se obtienen a partir de la  gráfica y las tablas).
+
+$\begin{cases}
+\ x+2y=2400 & \times (2)	 \\
+\ 2x+y=2100 & \times (-1)
+\end{cases} \to
+\begin{cases}
+\ 2x+4y=4800 \\ -2x-y=-2100	
+\end{cases} \to 3y=2700 \to \boldsymbol{y=900} \Rightarrow \boldsymbol{x=600}$
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cc|c|cl}
+ & $\quad \boldsymbol{x} \quad$ & $\quad \boldsymbol{y} \quad$ & $\boldsymbol{z=2.2x+2.6y}$ &  \\ \cline{2-4}
+\multicolumn{1}{c|}{\textbf{A}} & 0 & 0 & \multicolumn{1}{c|}{0} &  \\ \cline{1-4}
+\multicolumn{1}{c|}{\textbf{B}} & 0 & 1200 & \multicolumn{1}{c|}{3120} &  \\ \cline{1-4}
+\multicolumn{1}{c|}{\textbf{C}} & \textbf{600} & \textbf{900} & \multicolumn{1}{c|}{\textbf{3660}} & \textbf{Máximo} \\ \cline{1-4}
+\multicolumn{1}{c|}{\textbf{D}} & 1050 & 0 & \multicolumn{1}{c|}{2310} &  \\ \cline{2-4}
+\end{tabular}
+\end{table}
+
+\vspace{5mm}
+\begin{destacado}
+Luego, si fabricamos 600 kg de mezcla `Normal' y `900' kg de mezcla `Superior' obtenemos el máximo beneficio que es de 3660 \euro.	
+\end{destacado}
+
+\vspace{10mm}	
+	\subsection{El problema de la dieta}
+	\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (3.5,.01);
+	\fill [left color=teal!50, right color=green!50] (3.5,0) rectangle (7.5,.01);
+	\end{tikzpicture}
+	\vspace{10mm}
+
+\begin{example}
+.	Un ave de rapiña necesita para subsistir al día 30 unidades de proteínas, 20 de grasa y 8 de vitaminas. Sus presas son dos tipos de animales: ratones que le proporcionan 3 unidades de proteínas, 4 de grasa y 1 de vitaminas; y palomas, que le proporcionan 6 unidades de proteínas, 2 de grasa y 1 de vitaminas. Si cazar y comer un ratón le cuesta 7 unidades de energía y una paloma 12 unidades de energía, ?`cuántas presas debe cazar de cada clase para satisfacer sus necesidades, con el menor gasto de energía?	
+\end{example}
+
+\vspace{5mm}
+Disponemos los datos del problema en forma de tabla, llamamos $\boldsymbol{x}$ al número de ratones a cazar e $\boldsymbol{y}$ al de palomas:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lc|c|c|cc}
+\multicolumn{1}{c}{} & Caza & Proteínas & Grasas & \multicolumn{1}{c|}{Vitaminas} & Gasto \\ \cline{2-6} 
+\multicolumn{1}{l|}{Ratones} & $\boldsymbol{x}$ & 3 & 4 & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{7} \\ \hline
+\multicolumn{1}{l|}{Palomas} & $\boldsymbol{y}$ & 6 & 2 & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{12} \\ \hline
+\multicolumn{2}{c}{Necesidades diarias:} & 30 & 20 & 8 & 
+\end{tabular}
+\end{table}
+
+$\triangleright \ $ Función objetivo: $\quad z=f(x,y)=7x+12y;\ $ minimizar
+
+$\triangleright \ $ Restricciones (atención, ahora hemos de satisfacer, como mínimo, las cantidades energéticas diarias, las desigualdades serán del tipo $\ge$, esto suele ser usual en este tipo de problemas):
+
+\begin{adjustwidth}{20pt}{10pt}
+Necesidades de proteínas: $\quad 3x+6y \ge 30$
+
+Necesidades de grasa: $\quad 4x+2y \ge 20$
+
+Necesidades de vitaminas: $\quad x+y \ge 8$
+
+No aceptamos que se cacen un número negativo de ratones y palomas: $\ x\ge 0;\ y\ge 0$
+
+$ \begin{cases}
+\  3x+6y\ge 30 \\
+\  4x+2y\ge 20 \\
+\ x+y\ge 8 \\
+\  x\ge 0 \ ; \ \ \  y\ge 0	
+ \end{cases}$
+	
+\end{adjustwidth}
+
+
+Construimos las tablas para las rectas que proporcionaran las soluciones a las inecuaciones.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[H]
+\centering
+\begin{tabular}{cccccccccl}
+\multicolumn{2}{c}{\textbf{3x+6y=30}} & \textbf{} & \multicolumn{2}{c}{\textbf{4x+2y=20}} & \textbf{} & \multicolumn{2}{c}{\textbf{x+y=8}} & \textbf{} & \multicolumn{1}{c}{\textbf{}} \\
+\multicolumn{1}{c|}{x} & y & $\quad$ & \multicolumn{1}{c|}{x} & y & $\quad$ & \multicolumn{1}{c|}{x} & y & $\quad$ & \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Las restricciones $x\ge 0$ e $y \ge 0$\\ limitan el recinto de soluciones\\ factibles al primer cuadrante.\end{tabular}} \\ \cline{1-2} \cline{4-5} \cline{7-8}
+\multicolumn{1}{c|}{0} & 5 &  & \multicolumn{1}{c|}{0} & 10 &  & \multicolumn{1}{c|}{0} & 8 &  &  \\
+\multicolumn{1}{c|}{1} & 0 &  & \multicolumn{1}{c|}{5} & 0 &  & \multicolumn{1}{c|}{8} & 0 &  & 
+\end{tabular}
+\end{table}
+
+\emph{Obtenemos un recinto abierto (región factible no acotada) por lo que es necesario usar el método gráfico para resolver este problema}. Aunque no sea necesario, encontraremos todos cuatro vértices del recinto (dos de ellos son triviales de las tablas que hemos creado para la representación).
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.95\textwidth]{imagenes/img24.png}
+\end{figure}
+
+\vspace{5mm}
+\begin{destacado}
+Al desplazar las rectas de nivel por dentro del recinto, observamos que el valor mínimo de la función objetivo, gasto energético, se alcanza en el vértice C, luego: el ave ha de cazar 6 ratones y 2 palomas para, cumpliendo con todas las condiciones alimenticias, gastar el mínimo de energía, 66 unidades	.
+\end{destacado}
+
+
+
+
+\vspace{10mm}	
+	\subsection{El problema del transporte}\label{transporte}
+	\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (3.5,.01);
+	\fill [left color=teal!50, right color=green!50] (3.5,0) rectangle (7.5,.01);
+	\end{tikzpicture}
+	\vspace{10mm}
+	
+\begin{example}
+.	Dos almacenes A y B, tienen que distribuir fruta a tres mercados de la ciudad. El almacén A dispone de 10 toneladas de fruta diarias y el B de 15 toneladas, que se reparten en su totalidad. Los dos primeros mercados necesitan diariamente 8 toneladas de fruta, mientras que el tercero necesita 9 toneladas diarias. El coste del transporte desde cada almacén viene dado por los datos del cuadro siguiente. Planifica el transporte para que el coste sea mínimo.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c|}
+\cline{2-4}
+ & Mercado 1 & Mercado 2 & Mercado 3 \\ \hline
+\multicolumn{1}{|c|}{Almacén A} & 10 & 15 & 20 \\ \hline
+\multicolumn{1}{|c|}{Almacén B} & 15 & 10 & 10 \\ \hline
+\end{tabular}
+\end{table}
+\end{example}
+
+\vspace{5mm}
+Llamamos $\boldsymbol{x}$ al número de toneladas que entregará el almacén A al mercado 1 e $\boldsymbol{y}$ al número de toneladas que entregará el almacén A al mercado 2. El resto de la mercancía se ha de repartir teniendo en cuenta que  se reparte toda, lo expresamos en la siguiente tabla:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lc|c|cl}
+ & \textbf{Mercado 1} & \textbf{Mercado 2} & \multicolumn{1}{c|}{\textbf{Mercado 3}} & \textcolor{gris}{\textit{Totales almacenes}} \\ \cline{2-5} 
+\multicolumn{1}{l|}{\textbf{Almacén A}} & \textbf{x} & \textbf{y} & \multicolumn{1}{c|}{10-x-y} & \multicolumn{1}{c}{\textcolor{gris}{10}} \\ \hline
+\multicolumn{1}{l|}{\textbf{Almacén B}} & 8-x & 8-y & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}15-{[}(8-x)+(8-y){]}\\ =x+y-1\end{tabular}} & \multicolumn{1}{c}{\textcolor{gris}{15}} \\ \cline{1-4}
+\multicolumn{1}{l|}{\textcolor{gris}{\textit{Totales mercados}}} & \textcolor{gris}{8} & \textcolor{gris}{8} & \textcolor{gris}{9} & 
+\end{tabular}
+\end{table}
+
+
+$\triangleright \ $ La función objetivo la obtendremos al exigir que los costes sean mínimos:
+
+$z = {f(x,y)=10x+15y+20(10-x-y)+15(8-x)+10(8-y)+10(x-y+1)} $,
+
+despejando, $\quad \boldsymbol{z \ = º \boldsymbol{=390-15x-5y}  }$
+
+$\triangleright \ $ y las restricciones vendrán dadas al exigir que las cantidades distribuidas a cada mercado ne sean negativas:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lllll}
+$x\ge 0$ & $\quad$ & $y\ge 0$ & $\quad$ & $10-x-y\ge 0$ \\
+$8-x\ge 0$ &  & $8-y\ge 0$ &  & $x+y-1\ge 0$
+\end{tabular}
+\end{table}
+
+inecuaciones que, despejando, equivalen a las siguientes:
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lllll}
+$\boldsymbol{x\ge 0}$ & $\quad$ & $\boldsymbol{y\ge 0}$ & $\quad$ & $\boldsymbol{x+y\le 10}$ \\
+$\boldsymbol{x\le 8}$ &  & $\boldsymbol{y\le 8}$ &  & $\boldsymbol{x+y\ge 1}$
+\end{tabular}
+\end{table}
+
+Al representar las restricciones obtenemos un recinto acotado (cerrado) por lo que aplicaremos el método analítico: tabularemos todos sus vértices y el valor de la función objetivo en cada uno de ellos.
+
+\vspace{3mm}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.7\textwidth]{imagenes/img25.png}
+\end{figure}
+\vspace{3mm}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c|c|c|c|}
+\cline{2-7}
+ & A (0,1) & B (0,8) & C (2,8) & D (8,2) & E (8,0) & F (1,0) \\ \hline
+\multicolumn{1}{|c|}{z=390-15x-5y} & 385 & 350 & 320 & \begin{tabular}[c]{@{}c@{}}260\\ min\end{tabular} & 270 & 375 \\ \hline
+\end{tabular}
+\end{table}
+
+\vspace{3mm}
+\begin{destacado}
+	El coste de transporte mínimo, 260 unidades,  se obtiene en D (8,2), x=8 e y=2, y la distribución de mercancías quedará así:
+	
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c|c|c|}
+\cline{2-5}
+ & \textbf{Mercado 1} & \textbf{Mercado 2} & \textbf{Mercado 3} & Total almacén \\ \hline
+\multicolumn{1}{|l|}{\textbf{Almacén 1}} & \textbf{8} & \textbf{2} & \textbf{0} & 10 \\ \hline
+\multicolumn{1}{|l|}{\textbf{Almacén 2}} & \textbf{0} & \textbf{6} & \textbf{9} & 15 \\ \hline
+\multicolumn{1}{|l|}{Total Mercado} & 8 & 8 & 9 & \textbf{\begin{tabular}[c]{@{}c@{}}Coste min.:\\ 260 u\end{tabular}} \\ \hline
+\end{tabular}
+\end{table}
+
+\end{destacado}
+
+
+
+\vspace{4mm}
+\begin{center}
+\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (3.5,.01);
+	\fill [left color=teal!50, right color=green!50] (3.5,0) rectangle (7.5,.01);
+	\end{tikzpicture}
+	\vspace{4mm}
+\end{center}
+
+\begin{destacado}	
+\textcolor{purple}{\emph{Aunque es costumbre dar nombre genérico a los diferentes tipos de problemas de programación lineal, no hay que preocuparse por asociar cada problema a cada tipo si se entienden bien los enunciados.}}
+\end{destacado}
+
+\vspace{5mm}
+\section{Programación lineal entera}
+\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (3.5,.05);
+	\fill [left color=teal!50, right color=green!50] (3.5,0) rectangle (7.5,.05);
+	\end{tikzpicture}
+	\vspace{5mm}
+	
+	
+Hasta ahora no se ha impuesto ninguna condición sobre las soluciones de un problema de programación lineal. Sin embargo, en algunas ocasiones, sobre todo en problemas de enunciado, nos encontraremos casos en los que únicamente serán válidas coordenadas naturales o enteras.
+
+Veamos un ejemplo:
+	
+
+\vspace{5mm}
+\begin{example}
+.	Representar la región del plano determinada por las inecuaciones:
+
+$a)\ \ 2x+y\ge 5;\quad b)\ \ x-y+3\ge 0;\quad c)\ \ x-2y\le 1;\quad d)\ \ 2x-11\le 0$
+
+?`Cuántos puntos con coordenadas enteras existen en dicha región?
+
+Calcular el máximo y el mínimo, de entre todos los puntos con coordenadas enteras, de la función $F(x,y)=2x-y$
+\end{example}
+
+
+Representamos las restricciones y determinamos la región factible, observando los puntos con coordenadas enteras:
+	
+\vspace{4mm}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.7\textwidth]{imagenes/img26.png}
+\end{figure}
+\vspace{4mm}	
+	
+Tenemos un recinto acotado (cerrado) que contiene 26 puntos con coordenadas enteras (destacados en la figura). Como nos interesan los puntos con coordenadas enteras, la mejor forma de resolverlo es utilizar el procedimiento gráfico (los valores máximo y mínimo no tienen por qué coincidir con un vértice del recinto si imponemos que las soluciones han de ser enteras o naturales).
+
+Si representamos la recta de beneficio nulo y algunas rectas nivel  podemos comprobar que al desplazarlas hacia la derecha la función objetivo crece.
+
+\vspace{4mm}
+\begin{destacado}
+El último punto de contacto al desplazarnos hacia la derecha corresponde al valor máximo de la función objetivo:
+
+$\text{Vértice entero } (5, 2) \ \to \  F (5, 2) = 2 \cdot 5 - 2 = 8,\ max$
+
+El último punto de contacto al desplazarnos hacia la izquierda corresponde al valor
+mínimo de la función objetivo:
+
+$\text{Vértice entero } (1, 4) \ \to \ F (1, 4) = 2 \cdot 1 - 4 = -2	,\ min$
+\end{destacado}
+
+\vspace{5mm}
+
+\begin{ejemplo}
+	\begin{ejre}
+	Una confitería es famosa por sus dos especialidades en tartas: la tarta imperial y la tarta de lima.
+	
+La tarta imperial requiere para su elaboración medio kilo de azúcar y 8 huevos, y tiene un precio de venta de 8 \euro $\,$. La tarta de lima necesita 1 kilo de azúcar y 8 huevos, y tiene un precio de venta de 10  \euro $\,$. En el almacén les quedan 10 kilos de azúcar y 120 huevos.
+
+\begin{adjustwidth}{10pt}{5pt}
+a) ?`Qué combinaciones de especialidades pueden hacer?
+
+b) ?`Se cumplirían los requisitos si decidieran elaborar 3 tartas imperiales y 9 tartas de lima?
+
+c) ?`Cuántas unidades de cada tipo de tarta debe elaborar la confitería para obtener el mayor ingreso por ventas?	
+\end{adjustwidth}
+	\end{ejre}	
+\end{ejemplo}
+
+	
+Llamamos $\boldsymbol{x}$ a las tartas `imperial' e $\boldsymbol{y}$ a número de tartas `lima' que hay que elaborar para, cumpliendo las condiciones del problema, obtener el mayor beneficio.
+
+Disponemos los datos del problema en forma de tabla:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lccccc}
+\multicolumn{1}{c}{\textbf{}} & \textbf{} & \textbf{Azúcar} & \textbf{Huevos} & \textbf{} & \textbf{} \\
+\textbf{Imperial} & $\boldsymbol{x}$ & 1/2 & 8 & $\to$ & 8 \euro \\
+\textbf{Lima} & $\boldsymbol{y}$ & 1 & 8 & $\to$ & 10 \euro \\ \cline{1-4}
+Existencias & \multicolumn{1}{l}{} & 10 & 120 &  & 
+\end{tabular}
+\end{table}
+
+$\triangleright\ $ Función objetivo: $\quad \boldsymbol{ z=8x+10y,\ \ max }$
+
+$\triangleright\ $ Restricciones:
+
+Obviamente, $\ x\ge 0,\quad y\ge 0$. Además , $\ x,y \in \mathbb N$, queremos fabricar tartas enteras.
+
+En cuanto al azúcar: $\ 1/2 \ x+y\le 10$. Por los huevos: $\ 8x+8y\le 120$
+
+Resumiendo, $\quad \boldsymbol{
+	\begin{cases}
+ 		\ x\ge 0;\quad y\ge 0 \\
+ 		\ 1/2\ x + y \le 10 \\
+ 		\ 8x+8y\le 120\\
+ 		\ x,y \in \mathbb N
+	\end{cases}}$
+
+	
+\vspace{7mm}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{imagenes/img27.png}
+\end{figure}
+\vspace{7mm}	
+		
+\begin{destacado}
+\begin{adjustwidth}{10pt}{10pt}
+a) 	Las posibles combinaciones de especialidades que pueden hacer se corresponden con los puntos de coordenadas enteras dentro de este recinto, incluida la frontera (destacados en rojo).
+
+b) No se pueden hacer 3 tartas de lima y 9 imperiales, el punto Q(3,9) queda fuera del reciento.
+
+En efecto, para ello necesitaríamos 1/2 (3) + 9 = 10.5 kg de harina y solo disponemos de 10 kg.
+
+c) Para obtener el beneficio máximo, de 130 \euro $\,$ hay que fabricar 10 tartas de lima y 5 imperiales (punto P en la figura).
+\end{adjustwidth}
+\end{destacado}
+	
+
+\section{El método Simplex}
+\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (3.5,.05);
+	\fill [left color=teal!50, right color=green!50] (3.5,0) rectangle (7.5,.05);
+	\end{tikzpicture}
+	\vspace{5mm}	
+			
+\begin{myblock}{El algoritmo del simplex}
+\begin{small}
+\vspace{2mm} El Teorema fundamental de la Programación lineal asegura que si un problema de programación lineal tiene solución óptima finita, entonces existe necesariamente un vértice en el que se alcanza dicha solución óptima. Tenemos un número finito de vértices que se obtienen como solución de sistemas de ecuaciones lineales. Por tanto el valor óptimo se puede encontrar examinando la función objetivo en un número finito de puntos.
+
+\vspace{2mm} Sin embargo, el número de vértices de un problema, aunque finito, puede ser muy alto, de aquí que sea necesario idear una estrategia que los examine de manera inteligente descartando los vértices no prometedores en el sentido de mejorar la función objetivo.
+
+\vspace{2mm} Una estrategia de este estilo es la puesta en práctica por el algoritmo del \emph{simplex} de \emph{G. B. Dantzig}. El nombre del método procede del hecho de que en una de sus primeras aplicaciones, la región factible estaba formada por un simplex, un poliedro convexo.
+\begin{multicols}{2}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=.35\textwidth]{imagenes/simplex3.png}
+\end{figure}\begin{figure}[H]
+	\centering
+	\includegraphics[width=.4\textwidth]{imagenes/simplex2.png}
+\end{figure}
+\end{multicols}
+
+\vspace{2mm} El esquema del algoritmo es el siguiente:  imaginemos, por ejemplo, que una hormiga se encuentra con el esqueleto de un complicado poliedro convexo y se le antoja subir al vértice situado a la altura máxima escalando por las aristas del poliedro. ?`Qué debe hacer para subir cuanto antes? Comienza a subir por una arista hasta llegar al final de ella. Desde ese vértice tiene varias aristas que podría escoger para seguir escalando. ?`Cuál debe escoger? Parece razonable escoger la que suba más rápidamente, es decir, la de mayor pendiente, hasta llegar al próximo vértice. Y desde ese escogerá de nuevo la arista de mayor pendiente hasta llegar a un vértice desde el que no pueda ascender más. Habrá llegado a su destino.\footnote{Barrios, López y Quesada, Thales-CICA, 2002-2003 } 
+
+%La resolución de un problema de Programación lineal mediante el algoritmo del simplex es demasiado extenso y complicado para los contenidos de este nivel educativo.
+\end{small}	
+\end{myblock}
+
+
+\section{Ejercicios}
+\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (3.5,.05);
+	\fill [left color=teal!50, right color=green!50] (3.5,0) rectangle (7.5,.05);
+	\end{tikzpicture}
+	\vspace{10mm}
+
+
+
+
+	\subsection{Ejercicios resueltos}
+	\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (3.5,.01);
+	\fill [left color=teal!50, right color=green!50] (3.5,0) rectangle (7.5,.01);
+	\end{tikzpicture}
+	\vspace{10mm}
+
+\begin{ejemplo}
+\begin{ejer}
+	Optimizar $\ z=5x+4y\ $ sujeta a las restricciones: $\ \begin{cases} \ x+y\le 3 \\ \ 2x+y\ge 4 \\ \ y\ge -1 \end{cases}$	
+\end{ejer}	
+\end{ejemplo}
+\vspace{5mm}
+\begin{multicols}{2}
+	
+	Tablas: 
+	
+	\begin{table}[H]
+	\centering	
+	\begin{tabular}{ccccc}
+	\multicolumn{2}{c}{\textbf{x+y=3}} & $\quad$ & \multicolumn{2}{c}{\textbf{2x+y=4}} \\
+	\multicolumn{1}{c|}{x}     & y     &         & \multicolumn{1}{c|}{x}      & y     \\ \cline{1-2} \cline{4-5} 
+	\multicolumn{1}{c|}{0}     & 3     &         & \multicolumn{1}{c|}{0}      & 4     \\
+	\multicolumn{1}{c|}{3}     & 0     &         & \multicolumn{1}{c|}{2}      & 0    
+	\end{tabular}
+	\end{table}
+	
+	$\quad$
+
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{imagenes/img28.png}
+\end{figure}
+\end{multicols}
+
+\vspace{3mm}
+\begin{multicols}{2}
+Hemos obtenido un recinto cerrado (acotado). 
+
+Usaremos, pues, el método analítico: tabular la función objetivo en los tres vértices del recinto.
+
+	\begin{table}[H]
+	\centering
+	\begin{tabular}{l|c|c|c|c}
+	\textbf{} & \textbf{x} & \textbf{y} & \textbf{z} &              \\ \cline{1-4}
+	A         & 1          & 2          & 13         & \textbf{}    \\ \hline
+	B         & 4          & -1         & 16         & \textbf{Max} \\ \hline
+	C         & 2.5        & -1         & 11.5       & \textbf{min} \\ \hline
+	\end{tabular}
+	\end{table} 	
+	
+\end{multicols}
+
+\vspace{3mm} \emph{La función objetivo alcanza en máximo, de valor 16, para x=4 e y=-1. Alcanza el mínimo, 11.5, cuando x=4 e y=-1.}
+\vspace{10mm}
+
+
+
+
+\begin{ejemplo}
+\begin{ejer}
+	Optimizar $\ z=3x+6y\ $ sujeta a las restricciones $\ \begin{cases} x-3y\ge -6 \\ \ 2x-y \le 8 \\ \ x+2y\le 4 \end{cases}$
+\end{ejer}	
+\end{ejemplo}
+\vspace{5mm}
+Tablas:
+
+\vspace{5mm} 
+\begin{table}[H]
+	\centering
+	\begin{tabular}{cccccccc}
+	\multicolumn{2}{c}{\textbf{x-3y=-6}}  & \textbf{} & \multicolumn{2}{c}{\textbf{2x-y=8}} & \textbf{} & \multicolumn{2}{c}{\textbf{x+2y=4}} \\
+	\multicolumn{1}{c|}{x}        & y     & $\quad$   & \multicolumn{1}{c|}{x}     & y      & $\quad$   & \multicolumn{1}{c|}{x}      & y     \\ \cline{1-2} \cline{4-5} \cline{7-8} 
+	\multicolumn{1}{c|}{0}        & 2     &           & \multicolumn{1}{c|}{0}     & -8     &           & \multicolumn{1}{c|}{0}      & 2     \\
+	\multicolumn{1}{c|}{-6}       & 0     &           & \multicolumn{1}{c|}{4}     & 0      &           & \multicolumn{1}{c|}{4}      & 0     \\
+	\multicolumn{2}{c}{$3(0)+6(0)\ge -6$} &           & \multicolumn{2}{c}{$2(0)-(0)\le 8$} &           & \multicolumn{2}{c}{$(0)+2(0)\ge 4$}
+	\end{tabular}
+	\end{table}
+\vspace{5mm} El punto (0,0) cumple todas las restricciones por lo que nos quedamos con los semiplanos que lo contienen.
+\vspace{5mm} 
+\begin{multicols}{2}
+Obtenemos un recinto no acotado (abierto) por lo que estamos obligados a usar el método gráfico o de las rectas de nivel: dibujamos la recta de beneficio nulo, z=3x+6y=0 [pasa por (0,0) y (-1,2)] y rectas paralelas a ella que pasen por dentro del recinto (rectas de nivel). Nuestro recinto tiene dos vértices que se obtienen directamente de las tablas que hemos usado para su representación.	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{imagenes/img29.png}
+\end{figure}
+\end{multicols}
+
+\vspace{5mm} Las rectas de nivel (en verde, paralelas a la función objetivo nula, en rojo) empiezan a tocar el recinto de soluciones factibles en el segmento de extremos A y B, donde toma el valor 12. Al desplazarse por  el interior del recinto va tomando valores menores, p.e. en (0,0) toma el valor 0.
+
+\vspace{5mm} \emph{La función objetivo alcanza el máximo de valor 12 en los infinitos puntos del segmento de vértices A(0,2) y B(4,0). No se alcanza el mínimo.}
+
+$\,$
+
+
+\vspace{10mm}
+\begin{ejemplo}
+\begin{ejer}
+	Optimiza $\ z=3x-2y\ $ sujeta a $\ \begin{cases}\ 3x+y\le 60\\ \ x-2y\ge -3 \\ \ y\ge \dfrac x 2 - 2 \\ \ 2x+3y\ge 1 \end{cases}$
+\end{ejer}	
+\end{ejemplo}
+\vspace{5mm}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[H]
+\centering
+\begin{tabular}{lccccccccccc}
+\multirow{4}{*}{Tablas:$\ \ $} & \multicolumn{2}{c}{\textbf{3x+y=60}} & \textbf{} & \multicolumn{2}{c}{\textbf{x-2y=-3}} & \textbf{} & \multicolumn{2}{c}{\textbf{y=x/2-2}} & \textbf{} & \multicolumn{2}{c}{\textbf{2x+3y=1}} \\
+                         & \multicolumn{1}{c|}{x}      & y      & $\quad$   & \multicolumn{1}{c|}{x}       & y     & $\quad$   & \multicolumn{1}{c|}{x}      & y      & $\quad$   & \multicolumn{1}{c|}{x}      & y      \\ \cline{2-3} \cline{5-6} \cline{8-9} \cline{11-12} 
+                         & \multicolumn{1}{c|}{10}     & 30     &           & \multicolumn{1}{c|}{1}       & 2     &           & \multicolumn{1}{c|}{0}      & -2     &           & \multicolumn{1}{c|}{-1}     & 1      \\
+                         & \multicolumn{1}{c|}{20}     & 0      &           & \multicolumn{1}{c|}{-3}      & 0     &           & \multicolumn{1}{c|}{4}      & 0      &           & \multicolumn{1}{c|}{5}      & -3    
+\end{tabular}
+\end{table}
+
+\vspace{5mm}
+\begin{multicols}{2}
+$\quad$
+
+Hemos obtenido un recinto cerrado (acotado). 
+
+$\quad$
+
+Usaremos, pues, el método analítico: tabular la función objetivo en los cuatro vértices del recinto, que pasamos a calcular.
+
+$\quad$
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{imagenes/img30.png}
+\end{figure}
+\end{multicols}
+
+\vspace{5mm} $\quad \begin{cases}
+x-2y=-3\\2x+3y=1	
+\end{cases}\to A(-1,1); \quad
+\begin{cases}
+2y=x-4\\ 2x+3y=1	
+\end{cases}\to B(2,-1);$
+
+\vspace{5mm} $\quad \begin{cases}
+x-2y=-3\\ 3x+y=60	
+\end{cases}\to C(117/7,69/7); \quad
+\begin{cases}
+2y=x-4\\3x+y=60
+\end{cases}\to D(124/7,48/7)$
+
+\vspace{5mm}
+\begin{multicols}{2}
+\begin{table}[H]
+\centering
+\begin{tabular}{ccccc}
+\textbf{} & \textbf{x} & \textbf{y} & \textbf{z} & \textbf{}    \\
+A         & -1         & 1          & -5         & \textbf{min} \\
+B         & 2          & -1         & 8          &              \\
+C         & 117/7      & 69/7       & 213/7      &              \\
+D         & 124/7      & 48/7       & 276/7      & \textbf{Max}
+\end{tabular}
+\end{table}	
+$\quad$
+
+\emph{z alcanza el máximo, de valor 276/7 para x=124/7 e y=213/7}
+
+\vspace{4mm}
+
+\emph{z alcanza el mínimo, de valor -5, en x=-1 e y=1}
+
+$\quad$
+
+\end{multicols}
+
+ 
+
+
+
+\vspace{5mm}%********
+\begin{ejemplo}
+\begin{ejer}
+	Optimiza $z=x-3y \ , $ sujeta a  $ \ x-y+1\ge 0 ; \  \ x+y\ge 1 ;\  \ 3x+y\le 13 $
+\end{ejer}	
+\end{ejemplo}
+\vspace{3mm}%*********
+
+\begin{multicols}{2}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=.45\textwidth]{imagenes/img31.png}
+\end{figure}	
+Recinto cerrado, método analítico.
+Encontramos y tabulamos los vértices en la siguiente tabla.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|cc}
+\textbf{V(x,y)} & \multicolumn{2}{c}{\textbf{z}} \\ \hline
+A(0,1)          & -3        &                    \\
+B(3,4)          & -9        & \textbf{min}       \\
+C(6,-5)         & 21        & \textbf{Max}      
+\end{tabular}
+\end{table}
+\end{multicols}
+
+
+\vspace{10mm}
+\begin{ejemplo}
+\begin{ejer}
+	Para el recinto $\ x\ge 0;\ y\ge 0$; $\ 10-x\ge 0$; $\ 10-y\ge 0$; $\ x+y\le 13$; $\ x+2y\ge 12$, optimiza las siguientes funciones:
+	
+$f(x,y)=2x+y;\quad g(x,y)=x+2y;\quad h(x,y)=x-y-5;\quad i(x,y)=x+y+2$	
+\end{ejer}	
+\end{ejemplo}
+\vspace{5mm}
+Recinto cerrado. Representamos los vértices en la figura.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.75\textwidth]{imagenes/img32.png}
+\end{figure}
+
+Tabulando los vértices encontrados y las funciones objetivo dadas, encontramos:
+
+\vspace{3mm} \emph{$\triangleright\ \boldsymbol{f}$ alcanza el máximo en D(10,3), de valor23 y el mínimo en A(0,6), de valor 6}
+
+\vspace{3mm} \emph{$\triangleright\ \boldsymbol{g}$  alcanza el máximo, de valor 23, en C(3,10) y el mínimo, de valor 12 en los infinitos puntos del segmento de extremos A(0,6) y E(10,1)}
+
+\vspace{3mm} \emph{$\triangleright\ \boldsymbol{h}$  tiene un máximo de 4 en E(10,1) y un mínimo -15 en B(0,10)}
+
+\vspace{3mm} \emph{$\triangleright\ \boldsymbol{i}$ tiene su máximo, de valor 15, en C(3,10) y un mínimo, de valor 8, en A(0.6)}
+
+
+\vspace{10mm}
+\begin{ejemplo}
+\begin{ejer}
+	Encuentra los valores de $\boldsymbol{a}$ y $\boldsymbol{b}$ para que la función objetivo $z=3x+y$ alcance su valor máximo en el punto $(6,3)$ de la región factible definida por: $\ x\ge 0;\ $ $y\ge 0$; $\ x+\boldsymbol{a} \le 3$$; $$\ 2x+y\le \boldsymbol{b}$
+\end{ejer}	
+\end{ejemplo}
+\vspace{5mm}
+
+Por sus coordenadas, el vértice $(6,3)$ ha de ser el corte de las rectas $x+a=3$ con $2x+y=b$.
+
+$\begin{cases} \ x+ay=3 \\ \ 2x+y=0 \end{cases} \to \ max(6,3)\  \to \ \begin{cases} \ 6+3a=0 \\ \ 12+3=b \end{cases} \to \ \begin{cases} \ \boldsymbol{a=-1} \\ \ \boldsymbol{b=15} \end{cases}$
+
+\begin{multicols}{2}
+Dibujamos el recinto, que sale cerrado,  y tabulamos la función objetivo en los vértices.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|cc}
+\textbf{V(x,y)} & \multicolumn{2}{c}{\textbf{z=3x+y}} \\ \hline
+A(0,0)          & 0           &                       \\
+B(0,15)         & 15          & \textbf{}             \\
+C(6,13)         & 21          & \textbf{Max}          \\
+D(3,0)          & 9           &                      
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{imagenes/img32.png}
+\end{figure}
+\end{multicols}
+
+
+\vspace{10mm}
+\begin{ejemplo}
+\begin{ejer}
+	Una empresa compra 26 locomotoras a tres fábricas: 9 a A, 10 a B y 7 a C. Las locomotoras deben prestar servicio en dos estaciones distintas: 11 de ella en la estación N y 15 en la estación S. Los costes de traslado, por cada locomotora, son (en miles de euros) los que se indican en la sigiente tabla:
+\vspace{-5mm}%**********
+\begin{multicols}{2}	
+	\begin{table}[H]
+	\centering
+	\begin{tabular}{cc|c|c}
+                                & \textbf{A} & \textbf{B} & \textbf{C}             \\ \cline{2-4} 
+	\multicolumn{1}{c|}{\textbf{N}} & 6          & 15         & \multicolumn{1}{c|}{3} \\ \hline
+	\multicolumn{1}{c|}{\textbf{S}} & 4          & 20         & \multicolumn{1}{c|}{5} \\ \cline{2-4} 
+	\end{tabular}
+	\end{table}
+$\,$ 
+
+Determina como hacer el reparto para minimizar los costes.
+\end{multicols}
+\end{ejer}	
+\end{ejemplo}
+\vspace{5mm}
+
+Enviamos $\boldsymbol{x}$ locomotoras del la fábrica A a la estación N y enviamos $\boldsymbol{y}$ locomotoras del la fábrica B a la estación N y enviamos, el resto de envíos, para cumplir las condiciones, aparece en la tabla siguiente:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cc|c|c|c}
+                                & \textbf{A} & \textbf{B} & \textbf{C} &  $\quad$Totales \\ \cline{2-5} 
+\multicolumn{1}{c|}{\textbf{N}} & \textbf{x} & \textbf{y} & 11-x-y     &  $\quad$ 11      \\ \hline
+\multicolumn{1}{c|}{\textbf{S}} & $\quad$ 9-x    $\quad$     &  $\quad$ 10-y   $\quad$     &  $\quad$ x+y-4   $\quad$    &   $\quad$ 15      \\ \hline
+\multicolumn{1}{c|}{Totales  $\quad$ }    & 9          & 10         & 7          &  $\quad$ \textbf{26}      \\ \cline{2-4}
+\end{tabular}
+\end{table}
+
+$\triangleright \ $ Función objetivo:
+
+$\boldsymbol{ z} = $\begin{small}${6x+15y+3(11-x-y)+4(9-x)+20(10-y)+5(x+y-4)}$\end{small}$= \boldsymbol{ 4x-3y+249}$
+
+$\triangleright \ $ Restricciones: No puede haber entregas negativas de locomotoras:
+
+$$\begin{cases}
+\ x\ge 0 \\ \ y\ge 0 \\ \ 11-x-y\ge 0 \\ \ 9-x \ge 0 \\ \ 10-y \ge 0 \\ \ x+y-4 \ge 0  	
+\end{cases} \quad \longrightarrow \qquad \begin{cases}
+\ x\ge 0 \\ \ y\ge 0 \\ \ x+y\le 11 \\ \ x \le 9 \\ \ y \le 10 \\ \ x+y \ge 4 	
+ \end{cases}$$
+
+Representamos las restricciones y obtenemos un recinto de soluciones factible acotado por lo que usamos el \emph{método analítico}: tabulamos los 6 vértices que aparecen (intersecciones de las rectas que los forman) y tabulamos la función objetivo en todos ellos.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.75\textwidth]{imagenes/img34.png}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+V & A(0,4) & B(0,10)          & C(1,10) & D(9,2) & E(9,0) & F(4,0) \\ \hline
+z & 237    & \textbf{219 min} & 223     & 279    & 285    & 265    \\ \hline
+\end{tabular}
+\end{table}
+
+\emph{El mínimo coste, de 219 miles de euros, se alcanza al enviar 0 locomotoras de la fábrica A a la estación N y 10 locomotoras de la fábrica B a la estación S. El resto de envíos queda como aparece en la siguiente tabla:}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cc|c|c|c}
+                                     & \textbf{$\quad$A$\quad$} & \textbf{$\quad$B$\quad$} & \textbf{$\quad$C$\quad$} & $\quad$Totales \\ \cline{2-5} 
+\multicolumn{1}{c|}{\textbf{N}}      & \textbf{0}               & \textbf{10}              & 1                        & 11             \\ \hline
+\multicolumn{1}{c|}{\textbf{S}}      & 9                        & 0                        & 6                        & 15             \\ \hline
+\multicolumn{1}{c|}{Totales $\quad$} & 9                        & 10                       & 7                        & \textbf{26}    \\ \cline{2-4}
+\end{tabular}
+\end{table}
+
+
+\vspace{15mm}%************
+\begin{ejemplo}
+\begin{ejer}
+	Un pastelero fabrica dos tipos de tartas, T1 y T2, para las que usa tres tipos de ingredientes, A, B y C,. Dispone de 150 kg de A, 90 Kg de B y 150 Kg de C. Para fabricar una tarta T1 necesita 1 Kg de A, 1 Kg de B y 2Kg de C, mientras que para una tarta T2 necesita 5 Kg de A, 2 Kg de B y 1 Kg de C.
+	
+	a) Si vende las tatas T1 a 10 \euro $\,$ y las T2 a 23 \euro $\,$, ?`qué cantidad debe fabricar de cada clase para maximizar sus ingresos?
+	
+	b) Si fija el precio de venta de las tartas T1 a 15 \euro$\,$, ?`cuál debe ser el precio de las tartas T2 para que los ingresos máximos se consigan al fabricar 60 tartas T1 y 15 tartas T2? ?`Hay excendetes de ingredientes en estas condiciones?
+\end{ejer}	
+\end{ejemplo}
+\vspace{7mm}%****************
+------ a) Presentamos los datos en una tabla:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cccccc}
+Tartas & \begin{tabular}[c]{@{}c@{}}a \\ fabricar\end{tabular} & \textbf{A} & \textbf{B} & \textbf{C} & \begin{tabular}[c]{@{}c@{}}precio \\ de venta\end{tabular} \\ \hline
+\textbf{T1} & \textbf{x} & $\ \ 1 \ \ $ & $\ \ 1 \ \ $ & $\ \ 2 \ \ $ & $\ \ 10 \ \ $ \\
+\textbf{T2} & \textbf{y} & $5$ & $2$ & $1$ & $23$ \\ \cline{1-5}
+\multicolumn{2}{c}{Existencias} & 150 & 90 & 150 & 
+\end{tabular}
+\end{table}
+
+\vspace{4mm} $\triangleright \ $ Función objetivo: $\ \ z=10x+23y$, maximizar.
+
+\vspace{4mm}  $\triangleright \ $ Restricciones: $\ \ \begin{cases} x\ge 0;\ \ y\ge 0 \\
+x+5y\ge 150 \\ x+2y\ge 90 \\ 2x+y\ge 150  	\end{cases}$
+
+\vspace{4mm} Obtenemos un recinto cerrado por lo que aplicamos el método analítico: calculamos los vértices y tabulamos la función objetivo.
+
+\vspace{10mm} 
+\begin{multicols}{2}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{imagenes/img35.png}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccccc}
+ & x & y & z=10x+23y &  \\ \cline{2-4}
+A & 0 & 0 & 0 &  \\
+B & 0 & 30 & 690 &  \\
+\textbf{C} & \textbf{50} & \textbf{20} & \textbf{960} & \textbf{Max} \\
+D & 70 & 10 & 930 &  \\
+E & 75 & 0 & 750 & 
+\end{tabular}
+\end{table}
+\end{multicols}
+
+ 
+\emph{Los ingresos máximos son de 960 \euro $\,$ y se obtienen al fabricar 50 tartas T1 y 20 tartas T2.}
+
+\vspace{5mm}
+------ b) Nos han cambiado la función objetivo pero las restricciones siguen siendo las mismas por los que solo tenemos que tabular la nueva función objetivo $z=15x+my$, com $\boldsymbol{ m}$ el precio en euros de las tartas T2. Como sabemos una (\textbf{hay varias}) solución óptima se alcanza ahora en el vértice (60,15), al haber muchas soluciones se alcanzarán en un segmento.
+
+\vspace{3mm} Veamos a cuál recta pertenece el punto (60,15). Probando en las tablas, para x=60 obtenemos que y=15 solamente si sustituimos en la recta $\boldsymbol{x+2y=90}$, por lo que el segmento de infinitas soluciones es el que une los vértices C y D, cuya pendiente es 
+
+\vspace{3mm} $\dfrac{10-20}{70-50}=\dfrac{-1}{2}$. $\quad$\begin{small}\textcolor{gris}{(Podríamos haber obtenido la pendiente de la propia recta x+2y=90)}\end{small}
+
+\vspace{3mm} La pendiente de la nueva función objetivo $z=15+my=k \ $ \euro  $ \,$ es  $\dfrac{-15}{m}$, por lo que:
+
+\vspace{3mm} $\dfrac{-15}{m} \ = \ \dfrac {-1}{2} \quad \longrightarrow \quad m=30 \qquad$
+\emph{Hay que vender las tartas T2 a 60 \euro $\,$}
+
+\vspace{5mm}Si se fabrican 60 T1 y 15 T2, usamos (60)+5(15)=105 kg de A, (60)+2(15)=90 kg de B y 2(60)+15=135 kg de C, por lo que \emph{nos sobran 45 kg de A y 15 kg de C}.
+
+
+\vspace{10mm}
+\begin{ejemplo}
+\begin{ejer}
+	 Una peña de aficionados de un equipo de fútbol encarga a una empresa de transportes el viaje para llevar a los 1200 socios a ver un partido de su equipo. La empresa dispone de autobuses de 50 plazas y de microbuses de 30 plazas. El precio de cada autobús es de 1 260 \euro$\,$, y el de cada microbús, de 900 \euro$\,$. La empresa solo dispone, ese día, de 28 conductores. ?`Qué número de autobuses y microbuses deben contratarse para conseguir el mínimo coste posible? ?`Cuál es ese coste? ?`Quedarán asientos libres?
+\end{ejer}	
+\end{ejemplo}
+\vspace{5mm}
+
+$\triangleright \ $ Llamamos $\boldsymbol x$ al número de autobuses a contratar e $\boldsymbol y$ al de microbuses.
+
+\vspace{3mm} $\triangleright \ $ La función objetivo es: $\ z= 1260x+900y$, a minimizar.
+
+\vspace{3mm} $\triangleright \ $ Las restricciones son:
+$\quad \begin{cases} \ x+y \boldsymbol{\le} 28 \quad \text{ conductores} \\ \ 50x+20y \boldsymbol{\ge} 1200 \quad \text{  pasajeros} \\ \ x\ge 0; \ y\ge 0; \quad x,y \in \mathbb N \end{cases}$
+
+\vspace{3mm} Dibujamos el recinto (cerrado) y tabulamos $z$ en los vértices.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.75\textwidth]{imagenes/img36.png}
+\end{figure}
+
+\vspace{3mm} \emph{El coste de mínimo de 30 240 \euro $\, $ se obtiene al alquilar 24 autobuses y 0 microbuses, trasladando así a 24(50)+0(30)=1200 aficionados, no quedan asientos libres.}
+
+\vspace{5mm}
+\textcolor{gris}{\rule{200pt}{0.1pt}}
+\begin{footnotesize}
+
+\textcolor{gris}{Este problema se puede resolver de forma trivial sin usar programación lineal.}
+
+\textcolor{gris}{Precio por persona en autobús $\to$ 1 260 : 50 = 25.20 \euro}
+
+\textcolor{gris}{Precio por persona en microbús $\to$ 900 : 30 = 30 \euro}
+
+\textcolor{gris}{Por tanto, es más barato ubicar en autobuses a tantos viajeros como sea posible, y si pueden ser todos, mejor.}
+
+\textcolor{gris}{1 200 viajeros : 50 plazas/autobús = 24 autobuses. En 24 autobuses caben los 1 200 aficionados y el coste será de 30 240 \euro$\,$, el mínimo posible.}
+\end{footnotesize}
+
+
+\vspace{10mm}
+\begin{ejemplo}
+\begin{ejer}
+	Una persona quiere invertir 100 000 \euro $\,$ en dos tipos de acciones A y B. Las de tipo A tienen más riesgo, pero producen un beneficio del 10\%. Las de tipo B son más seguras, pero producen solo el 7\% nominal.
+	
+Decide invertir como máximo 60 000 \euro $\,$ en la compra de acciones A y, por lo menos, 20 000 \euro $\,$ en la compra de acciones B. Además, quiere que lo invertido en A sea, por lo menos, igual a lo invertido en B.
+
+?`Cómo debe invertir los 100 000 \euro $\,$ para que el beneficio anual sea máximo?
+\end{ejer}	
+\end{ejemplo}
+\vspace{5mm}
+
+$\triangleright\ $ Invertimos $\boldsymbol x$ \euro $\,$ en A e $\boldsymbol y$ \euro $\,$ en B
+
+\vspace{3mm} $\triangleright\ $ $ z= 0.10x+0.07 y,\ $ maximizar
+
+\vspace{3mm} $\triangleright\ $ Restricciones:
+
+\begin{multicols}{2}
+\begin{small}
+Invertir 100 000 \euro $\, : \quad x+y \le 100 000$
+
+Como max 60 000 \euro $\, $ en A: $\quad x\le 60 000$
+
+Por lo menos 20 000 \euro $\,$ en B: $\quad y\ge 20 000$ 
+
+En A mayor o igual o más que en B: $\quad x\ge y$
+
+Invertir cantidades positivas: $\quad x\ge 0;\ \ y\ge 0$
+\end{small}
+$\,$
+
+$\qquad \begin{cases}
+ \ x+y\le 100 000 \\ \ x\le 60 000 \\ \ y\ge 20 000 \\ \ x\ge y 	\\ \ x\ge 0; \ \ y\ge 0	
+ \end{cases}$
+\end{multicols}
+Dibujamos el recinto, que sale cerrado, y tabulamos $z$ en los vértices.
+
+\vspace{3mm}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.9\textwidth]{imagenes/img37.png}
+\end{figure}
+
+\vspace{3mm} \emph{El beneficio es máximo, de 8 800 \euro $\,$  al invertir 60 000 \euro $\,$  en acciones A y 20 000 \euro $\,$  en acciones B.}
+
+
+
+\vspace{10mm}
+\begin{ejemplo}
+\begin{ejer}
+	En una granja hay un total de 9 000 conejos. La dieta mensual mínima que debe consumir cada conejo es de 48 unidades de hidratos de carbono y 60 unidades de proteínas. En el mercado hay dos productos (A y B) que aportan estas necesidades de consumo. Cada envase de A contiene 2 unidades de hidratos de carbono y 4 unidades de proteínas y cada envase de B contiene 3 unidades de hidratos de carbono y 3 unidades de proteínas. Cada envase de A cuesta 024 euros y cada envase de B cuesta 0.20 euros.
+	
+Calcula el número de envases de cada tipo que se debe adquirir para que el coste sea mínimo. Halla el valor de dicho coste mensual mínimo.
+\end{ejer}	
+\end{ejemplo}
+\vspace{5mm}
+
+Resumimos los datos del problema en una tabla, \textbf{para cada uno de los 9000 conejos}:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccccc}
+ & \textbf{a comprar} & \textbf{Hidratos C} & \textbf{Proteínas} & \textbf{Coste (\euro)} \\ \cline{2-5} 
+\textbf{Envase A} & \textbf{x} & 2 & 3 & 0.24 \\
+\textbf{Envase B} & \textbf{y} & 3 & 3 & 0.20 \\ \cline{2-3}
+\textbf{Necesidades:} & 48 & 60 &  & 
+\end{tabular}
+\end{table}
+
+\begin{multicols}{2}
+$\triangleright \ $ Restricciones:
+
+Necesidades A: $\ \ 2x+3y\ge 48$
+
+Necesidades B: $\ \ 4x+3y\ge 60$	
+
+Positividad x,y: $\ \ x\ge 0,\ \ y\ge 0$
+
+$\triangleright \ $ Función objetivo:
+
+$$z\ = \ 0.24x+0.20y,\ \ \text{minimizar}$$
+
+$\, $
+\end{multicols}
+
+\vspace{3mm}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.75\textwidth]{imagenes/img38.png}
+\end{figure}
+
+\vspace{3mm} Obtenemos un recinto abierto (no acotado) por lo que tenemos que usar el método gráfico: dibujamos la función objetivo nula z=0.24x+0.20y=0 (aparece en \textcolor{red}{rojo} en la figura) y dibujamos varias (con dos es suficiente) rectas paralelas a ésta que pasen por puntos del recinto, son las \emph{rectas de nivel} (dibujadas de \textcolor{teal}{verde}).
+
+\vspace{3mm} Observamos que las rectas de nivel empiezan a tocar el recinto en el vértice B(6,12), donde toman el valor z=0.24(6)+0.20(12)=3.84. En cualquier otro punto del recinto (trazamos otra recta de nivel), por ejemplo el C(0,20) vemos que la función objetivo toma el valor z=4; luego el valor mínimo de z es 3.84 y se alcanza cuando x=6 e y=12.
+
+\vspace{7mm}\emph{Para cada conejo, para minimizar el coste (3.84 \euro), hay que comprar 6 envases de tipo A y 12 de tipo B. Para los 9 000 conejos habrá que comprar 6 $\cdot$ 9 000 = 54 000 envases de tipo A y 12 $\cdot $  9 000 = 10 8000 envases de tipo B; el coste será de 3.84 $ \cdot  $ 9 000, en total, 34 560 \euro.}
+
+
+
+\vspace{15mm}
+\begin{ejemplo}
+\begin{ejer}
+	Tenemos 120 refrescos de naranja y 180 de limón. Se venden en lotes de dos tipos: los lotes de tipo A contienen 3 refrescos de naranja y 3 de limón, y los de tipo B contienen 2 refrescos de naranja y 4 de limón. El beneficio es de 6 \euro$\,$ por cada lote de tipo A y 5 \euro$\,$ por cada lote de tipo B. Halla cuántos paquetes de cada tipo hay que vender para maximizar los beneficios.
+\end{ejer}	
+\end{ejemplo}
+\vspace{7mm}
+
+Esquematizamos el problema en una tabla:
+
+\vspace{3mm}
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccc}
+ & \textbf{a vender} & \textbf{Naranja} & \textbf{Limón} & \textbf{Beneficios (\euro)} \\ \cline{2-5} 
+\textbf{Lotes A} & \textbf{x} & 3 & 3 & 6 \\
+\textbf{Lotes B} & \textbf{y} & 2 & 4 & 5 \\ \cline{3-4}
+\textbf{Existencias:} &  & 120 & 180 & 
+\end{tabular}
+\end{table}
+
+\vspace{5mm} $\triangleright \ $ Función objetivo: $\ z=f(x,y)=6x+5y$, maximizar-
+
+\vspace{5mm} $\triangleright \ $ Restricciones:
+
+\vspace{3mm}
+\begin{multicols}{2}
+Naranjas: $\ 3x+2y\le 120$; 
+
+Limones: $\ 3x+4y\le 180$; 
+
+Positividad: $\ x\ge 0,\ \ y\ge 0$
+
+$\longrightarrow \qquad \begin{cases} \ 3x+2y\le 120 \\ \ 3x+4y\le 180\\ \ x\ge 0;\ \ y\ge 0 \end{cases}$
+\end{multicols}
+
+\vspace{5mm} Al representar las restricciones obtenemos un recinto cerrado. Aplicamos el método analítico: calculamos los vértices del recinto y tabulamos la función objetivo en ellos.
+
+\vspace{5mm}
+\begin{multicols}{2}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{imagenes/img39.png}
+\end{figure}
+%$\,$
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cc|c|cc}
+ & $\ \ x \ \ $ & $\ \ y \ \ $ & $z=6x+5y$ &  \\ \cline{2-4}
+\multicolumn{1}{c|}{A} & 0 & 0 & \multicolumn{1}{c|}{0} &  \\ \cline{1-4}
+\multicolumn{1}{c|}{B} & 0 & 45 & \multicolumn{1}{c|}{225} &  \\ \hline
+\multicolumn{1}{c|}{C} & 20 & 30 & \multicolumn{1}{c|}{270} & Máx \\ \hline
+\multicolumn{1}{c|}{D} & 40 & 0 & \multicolumn{1}{c|}{240} &  \\ \cline{2-4}
+\end{tabular}
+\end{table}
+\vspace{3mm}
+\begin{adjustwidth}{10pt}{5pt}
+\emph{Los beneficios, 270 \euro$\,$ son máximos al vender 20 lotes de tipo A y 30 lotes de tipo B.}
+\end{adjustwidth}
+
+$\,$
+\end{multicols}
+
+
+
+
+\vspace{10mm}
+\begin{ejemplo}
+\begin{ejer}
+	Disponemos de 90 000 m$^2$ para construir parcelas de 3 000 y 5 000 m$^2$, A y B. los beneficios son de 10 000 \euro$\,$ por cada parcela A y de 20 000 \euro$\,$ por B.
+	
+El número máximo de parcelas B es de 120, y el de parcelas A, 150. Determina cuántas parcelas de cada tipo necesitamos para obtener beneficios máximos.
+\end{ejer}	
+\end{ejemplo}
+\vspace{5mm}
+
+\vspace{3mm} $\triangleright \ $ Incógnitas: Construiremos $\boldsymbol x$ parcelas de tipo A e $\boldsymbol y$ parcelas de tipo B.
+
+\vspace{3mm} $\triangleright \ $ Función objetivo: $\ z \ = \ 10000x + 20000y$; maximizar.
+
+\vspace{3mm} $\triangleright \ $  Restricciones:
+
+\begin{multicols}{2}
+Parcelas A: $\ 0 \le x \le 150$
+
+Parcelas B: $\ 0 \le y \le 120$
+
+Terreno: $\ 3000x+5000y\le 90000$
+
+$\to \quad \begin{cases} \ 0\le x \le 150 \\ \ 0\le y \le 120 \\ \ 3000x+5000y\le 90000 \end{cases}$  	
+\end{multicols}
+
+
+\vspace{3mm} Al representar las restricciones obtenemos un recinto cerrado. Aplicamos el método analítico: calculamos los vértices del recinto y tabulamos la función objetivo en ellos.
+
+\vspace{3mm} \emph{Como se observa en la imagen, para obtener el máximo beneficio, 360 000 $\euro$, hay que construir 18 parcelas de tipo B y ninguna de tipo A.}
+Las restricciones `el número máximo de parcelas B es de 120 y el de parcelas A 150' han resultado superfluas. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.75\textwidth]{imagenes/img41.png}
+\end{figure}
+
+
+\vspace{15mm}%*****************
+\begin{ejemplo}
+\begin{ejer}
+	Un tendero va al mercado central con su furgoneta, que puede cargar 700 kg, y con 500 \euro$\,$ en el bolsillo, a comprar fruta para su tienda. Encuentra las manzanas a 0,80 \euro/kg y las naranjas a 0.50 \euro/kg. El tendero cree que podrá vender las manzanas a 0.88 \euro/kg y las naranjas a 0.55 \euro/kg. ?`Qué cantidad de manzanas y de naranjas le conviene comprar si quiere obtener el mayor beneficio posible? 
+\end{ejer}	
+\end{ejemplo}
+\vspace{7mm}%*****************
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccccc}
+ %& \multicolumn{3}{c}{(\euro/kg)} & (kg) \\
+ & Compra (\euro/kg)& Venta (\euro/kg)& Beneficio (\euro/kg)& Compra (kg)\\ \hline
+ % & \multicolumn{3}{c}{(\euro/kg)} & (kg) \\ \hline
+\multicolumn{1}{l}{manzanas:} & 0.80 & 0.88 & 0.08 & \textbf{x} \\
+\multicolumn{1}{l}{naranjas:} & 0.50 & 0.55 & 0.05 & \textbf{y} \\ \hline
+\multicolumn{5}{c}{Furgoneta: 700kg;  $\qquad \qquad  $Dinero para compra: 500 \euro}
+\end{tabular}
+\end{table}
+
+\vspace{5mm}%*****************
+\begin{multicols}{2}
+
+$\triangleright$ Función objetivo:
+
+	$\qquad z=0.08x+0.05y; \ max $
+	
+$\triangleright$ Restricciones: $\ \to$
+
+	$\begin{cases} \ x+y\le 700 \\ \ 0.80x+0.50y\le 500 \\ \ x\ge 0;\ \ y\ge 0 \end{cases}$
+	
+\end{multicols}
+
+\vspace{5mm} %*****************
+Al representar las restricciones obtenemos un recinto cerrado. Aplicamos el método analítico: calculamos los vértices del recinto y tabulamos la función objetivo en ellos.
+
+\vspace{5mm} %*****************
+\begin{multicols}{2}
+$\,$
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{imagenes/img42.png}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccccc}
+ & \textbf{x} & \textbf{y} & \textbf{z} & \textbf{} \\
+\textbf{A} & 0 & 0 & 0 &  \\
+\textbf{B} & 0 & 700 & 0 &  \\
+C & \textbf{500} & \textbf{200} & \textbf{50} & \textbf{Max} \\
+D & \textbf{625} & \textbf{0} & \textbf{50} & \textbf{Max}
+\end{tabular}
+\end{table}
+\emph{El beneficio máximo, 50 \euro $\,$ se encuentra en los infinitos puntos del segmento de vértices C(500,200) y D(625,0). Hay infinitas soluciones, una de ellas consiste en comprar 500 kg de manzanas y 200 de naranjas, otra en comprar  sólo 625 kg de manzanas (ninguna naranja).}
+\end{multicols}
+
+Para buscar más soluciones posibles al problema basta con acudir a la recta que contiene el segmento, 0.8x+0.5y=500, y sustituir la x por cualquier valor del intervalo [550,635], o bien, sustituir la y por valores en [0,200]. El el gráfico hemos destacados dos de estos posibles valores, P(600,40) y Q(550,120). Compruebe el/la lector/a que, para estas compras, el beneficio también es de 50  \euro.
+
+
+\vspace{15mm}%**************
+\begin{ejemplo}
+\begin{ejer}
+	un deportista necesita diariamente consumir 36 g de una sustancia M, 24 g de N y 162 g de P. En la farmacia ha encontrado dos tipos de cápsulas que contienen estas sustancias. las cápsulas A tienen 6 g de M, 2 g de N y 18 g de P, y cuestan 3 céntimos por cápsula. las cápsulas B tienen 3 g de M, 4 g de N y 18 g de P, y cuestan 4,5 céntimos por cápsula. ?`Cuántas cápsulas de cada tipo necesita para que el coste sea mínimo?
+\end{ejer}	
+\end{ejemplo}
+\vspace{5mm}
+\begin{table}[H]
+\centering
+\begin{tabular}{lccccc}
+ & \textbf{\begin{tabular}[c]{@{}c@{}}cápsulas a\\ comprar\end{tabular}} & \textbf{M (g)} & \textbf{N (g)} & \textbf{P (g)} & \textbf{\begin{tabular}[c]{@{}c@{}}precio\\ (céntimos)\end{tabular}} \\ \hline
+ & & & & \\ 
+\textbf{cápsulas A:} & \textbf{x} & 6 & 2 & 18 & 3 \\
+\textbf{cápsulas B:} & \textbf{y} & 3 & 4 & 18 & 4.5 \\ 
+& & & & \\ \cline{3-5}
+\textbf{Necesidades:} &  & 36 & 24 & 162 & 
+\end{tabular}
+\end{table}
+
+\vspace{5mm}
+\begin{multicols}{2}
+$\triangleright \ $	Función objetivo:
+
+$\qquad z=3x+4.5y; \ \ min$
+
+$\,$
+
+$\triangleright \ $	Restricciones: $\qquad \to$
+
+$\begin{cases} \ 6x+3y\ge 36 \\ \ 2x+4y\ge 24 \\ \ 18x+18y\ge 162 \\ \ x\ge 0;\ \ y\ge 0 \end{cases}$
+\end{multicols}
+
+\vspace{3mm} Obtenemos un recinto abierto (no acotado) por lo que tenemos que usar el método gráfico: dibujamos la función objetivo nula z=3x+4.5y=0 (aparece en \textcolor{red}{rojo} en la figura) y dibujamos varias (con dos es suficiente) rectas paralelas a ésta que pasen por puntos del recinto, son las \emph{rectas de nivel} (dibujadas de \textcolor{teal}{verde}).
+
+\vspace{5mm}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.75\textwidth]{imagenes/img43.png}
+\end{figure}
+
+\vspace{5mm} En la figura, con las dos rectas de nivel trazadas, se observa que empiezan a tocar a la región factible en el vértice B(6,3) donde toma el valor 21, mímimo. (en el vértice A(3,6), z vale 24), por ello, \emph{el deprotista, para satisfacer sus necesidades con un coste mínimo de 21 céntimos de euro, deberá comprar 3 cápsulas de tipo A y 6 de tipo B.}
+
+
+
+\vspace{10mm}
+\begin{ejemplo}
+\begin{ejer}
+	Una tienda de artículos de piel necesita para su próxima campaña un mínimo de 80 bolsos, 120 pares de zapatos y 90 cazadoras. Se abastece de los artículos en dos talleres, A y B. El taller A produce diariamente 4 bolsos, 12 pares de zapatos y 2 cazadoras con un coste diario de 360 \euro. la producción diaria del taller B es de 2 bolsos, 2 pares de zapatos y 6 cazadoras siendo su coste de 400 \euro $\,$ cada día.
+	
+	Determina, justificando la respuesta el número de días que debe trabajar cada taller para abastecer a la tienda con el mínimo coste así como el valor de dicho coste.
+
+\end{ejer}	
+\end{ejemplo}
+\vspace{5mm}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lccccc}
+ & \textbf{\begin{tabular}[c]{@{}c@{}}días de\\ trabajo\end{tabular}} & \textbf{ Bolsos} & \textbf{ Zapatos } & \textbf{ Cazadoras } & \textbf{\begin{tabular}[c]{@{}c@{}}Coste\\ \euro \end{tabular}} \\ \hline
+\textbf{} &  &  &  &  &  \\
+\textbf{Taller A} & \textbf{x} & 4 & 12 & 2 & 360 \\
+\textbf{Taller B} & \textbf{y} & 2 & 2 & 6 & 400 \\
+\textbf{} &  &  &  &  &  \\ \cline{3-5}
+\textbf{Necesidades:} &  & 80 & 120 & 90 & 
+\end{tabular}
+\end{table}
+
+\vspace{5mm}
+
+$\triangleright\ $ Función objetivo: $\quad z=360x+400y;\ \ min$
+
+\vspace{3mm} $\triangleright \ $ Restricciones:  
+$ \quad \begin{cases}
+\ \ \text{Bolsos: } &	4x+2y\ge 80 \\
+\ \ \text{Zapatos: } & 12x+2y\ge 120 \\
+\ \ \text{Cazadoras:} & 2x+6y\ge 90 \\
+\ \ \text{Positividad:} & x\ge 0; \ \ y\ge 0
+\end{cases}$
+ 
+\vspace{3mm} Obtenemos un recinto abierto (no acotado) por lo que tenemos que usar el método gráfico: dibujamos la función objetivo nula z=360x+400y=0 (aparece en \textcolor{red}{rojo} en la figura) y dibujamos varias (con dos es suficiente) rectas paralelas a ésta que pasen por puntos del recinto, son las \emph{rectas de nivel} (dibujadas de \textcolor{teal}{verde}).
+
+\vspace{5mm}
+\begin{figure}[h] %**********************************************************
+	\centering
+	\includegraphics[width=.75\textwidth]{imagenes/img44.png}
+	\caption*{Ejercicio 16}
+\end{figure}
+
+Como se observa en la figura del problema 16, la función alcanza el mínimo, de valor 9400, en el vértice C(15,10); así, \emph{el taller A debe trabajar 15 días y el taller B 10 días y el coste mínimo será de 9 400 \euro.}
+
+
+\vspace{10mm}
+\begin{ejemplo}
+\begin{ejer}
+	Un profesor ha dado a sus alumnos una lista de problemas para que resuelvan, como máximo, 70. los problemas están clasificados en dos grupos. los del grupo A valen 5 puntos cada uno y los del grupo B, 7 puntos. Para resolver un problema del tipo A se necesitan 2 minutos y para resolver un problema del tipo B, 3 minutos. Si los alumnos disponen de dos horas y media para resolverlos, ?`cuántos problemas de cada tipo habría que hacer para obtener la puntuación máxima?
+\end{ejer}	
+\end{ejemplo}
+\vspace{5mm}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc}
+Problemas & t (min) & puntos \\ \hline
+$A \to \ \boldsymbol{x} \quad $ & 2 & 5 \\
+$B \to \ \boldsymbol{y} \quad$ & 3 & 7 \\ \hline
+70 máx $\quad$& $\quad$ 150 min $\quad$ & $\boldsymbol{z=5x+7y;\ \ \max}$
+\end{tabular}
+\end{table}
+
+\begin{multicols}{2}
+$\triangleright \ $	Función objetivo: 
+
+$\quad z=5x,7y;\ \ max$
+
+$\triangleright \ $ Restricciones:
+
+$\begin{cases} \ 2x+3y\le 150 \\ \ x+y\le 70 \\ \ x\ge 0;\ \ y\ge 0 \end{cases}$
+\end{multicols}
+
+\vspace{5mm} %*****************
+Al representar las restricciones obtenemos un recinto cerrado. Aplicamos el método analítico: calculamos los vértices del recinto y tabulamos la función objetivo en ellos.
+
+
+\vspace{5mm}
+\begin{multicols}{2}
+	\begin{figure}[H] 	\centering
+	\includegraphics[width=.45\textwidth]{imagenes/img45.png}
+\end{figure}
+$\,$
+\begin{table}[H]
+\centering
+\begin{tabular}{cc|c|cc}
+ & \textbf{x} & \textbf{y} & \textbf{z=5x+7y} & \textbf{} \\ \cline{2-4}
+\multicolumn{1}{c|}{\textbf{A}} & 0 & 0 & \multicolumn{1}{c|}{0} &  \\ \cline{1-4}
+\multicolumn{1}{c|}{\textbf{B}} & 0 & 50 & \multicolumn{1}{c|}{350} &  \\ \hline
+\multicolumn{1}{c|}{C} & \textbf{60} & \textbf{10} & \multicolumn{1}{c|}{\textbf{370}} & \textbf{max} \\ \hline
+\multicolumn{1}{c|}{\textbf{D}} & 70 & 0 & \multicolumn{1}{c|}{350} &  \\ \cline{2-4}
+\end{tabular}
+\end{table}
+\end{multicols}
+
+\vspace{5mm} \emph{Para la máxima puntuación hay que resolver 60 problemas de tipo A y 10 de tipo B, consiguiendo por ello 370 puntos.}
+
+
+
+
+
+
+
+\vspace{10mm}
+\begin{ejemplo}
+\begin{ejer}
+	Dos compuestos medicinales tienen dos principios activos A y B. Por cada píldora, el primer compuesto tiene 2 unidades de A y 6 de B, mientras que el segundo compuesto tiene 4 unidades de A y 4 unidades de B. Durante un período de tiempo, un paciente debe recibir un mínimo de 16 unidades del tipo A y un mínimo de 24 unidades del tipo B. Si el coste de cada píldora del primer compuesto es de 0.50 \euro $\,$ y el coste de cada píldora del segundo compuesto es de 0.90 \euro $\,$, calcúlese el número óptimo de píldoras de cada compuesto que debe recibir el paciente para minimizar los costos.
+\end{ejer}	
+\end{ejemplo}
+\vspace{5mm}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lccc}
+ & \textbf{Principio A} & \textbf{Principio B} & \textbf{Coste \euro} \\ \hline
+\textbf{Compuesto 1} $\ \to \ \boldsymbol{ x}:\ $ & 2 & 6 & 0.50 \\
+\textbf{Compuesto 2} $\ \to \ \boldsymbol{ y}:\ $ & 4 & 4 & 0.90 \\ \cline{2-3}
+\textbf{Necesidades:} & 16 & 24 & 
+\end{tabular}
+\end{table}
+
+\vspace{5mm} \begin{multicols}{2}
+$ \triangleright \ $	Función Objetivo:
+
+$\qquad z=0.50x+0,90y;\ \ min$
+
+$ \triangleright \ $	Restricciones:
+
+$\begin{cases} \ 2x+4y\ge 16 \\ \ 6x+4y\ge 25 \\ \ x\ge 0;\ \ y\ge  0. \end{cases}$ 
+ \end{multicols}
+
+\vspace{5mm} Obtenemos un recinto abierto (no acotado) por lo que tenemos que usar el método gráfico: dibujamos la función objetivo nula z=.50x+0.90y=0 (aparece en \textcolor{red}{rojo} en la figura) y dibujamos varias (con dos es suficiente) rectas paralelas a ésta que pasen por puntos del recinto, son las \emph{rectas de nivel} (dibujadas de \textcolor{teal}{verde}).
+
+\vspace{5mm} Las rectas de nivel, paralelas a la función objetivo nula, empiezan a tocar el recinto en el vértice B(2,3), donde toman el valor 0.5x+0.9y=3.7: En otro punto del recinto, p.e. el A(8,0), su valor es 0.5x+0.9y=4, por lo que el mínimo se alcanza en B, así, \emph{el paciente deberá tomar 2 píldoras del primer compuesto y 3 del segundo, con un coste mínimo de 3.70 \euro.}
+
+\vspace{5mm}
+	\begin{figure}[H] 	\centering
+	\includegraphics[width=.75\textwidth]{imagenes/img46.png}
+\end{figure}
+%************************************************
+%*******Conclusión anterior a figura ************
+%************************************************
+
+
+\vspace{10mm}
+\begin{ejemplo}
+\begin{ejer}
+	Una compañía aérea tiene dos modelos de avión (A y B) para cubrir tres trayectos diferentes (T1, T2 y T3).
+
+El modelo A puede realizar mensualmente 10 veces el trayecto T1, 30 veces el T2 y 50 veces el T3. El modelo B puede realizar mensualmente 20 veces cada uno
+de los trayectos. 
+
+La compañía se ha comprometido a realizar al menos 80 veces el trayecto T1, 160 veces el T2 y 200 veces el T3.
+
+Si el coste de combustible de los dos modelos es de 200 000 \euro$\,$ mensuales, ?`cuánto tiempo debe volar cada uno de estos modelos para que se cumplan
+los compromisos adquiridos con el mínimo coste?
+\end{ejer}	
+\end{ejemplo}
+\vspace{5mm}
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccc}
+ & \textbf{Trayecto T1} & \textbf{Trayecto T2} & \textbf{Trayecto T3} & \textbf{Coste (\euro)} \\ \hline
+\textbf{Avión A} $\ \to \boldsymbol x \: \ $ & 10 & 30 & 50 & 200 000 \\
+\textbf{Avión B} $\ \to \boldsymbol y \: \ $ & 20 & 20 & 20 & 200 000 \\ \cline{2-4}
+\textbf{Necesidades:} & 80 & 160 & 200 & 
+\end{tabular}
+\end{table}
+
+\vspace{5mm}
+\begin{multicols}{2}
+$\triangleright \ $	Función Objetivo:
+
+$\qquad z=200 \, 000 x+200 \, 000y ;\ \ min$
+
+$\, $
+
+$\triangleright \ $ Restricciones:
+
+$\begin{cases} \ x \ge 0; \ \ y \ge 0 \\ \ 10x+20y\ge 80 \\ \ 30x+20y\ge 160 \\ \ 50x+20y\ge 200 \end{cases}$
+\end{multicols}
+
+\vspace{5mm}
+\vspace{5mm} Obtenemos un recinto abierto (no acotado) por lo que tenemos que usar el método gráfico: dibujamos la función objetivo nula z = 200 000 x+200 000 y = 0 (aparece en \textcolor{red}{rojo} en la figura) y dibujamos varias (con dos es suficiente) rectas paralelas a ésta que pasen por puntos del recinto, son las \emph{rectas de nivel} (dibujadas de \textcolor{teal}{verde}).
+
+\vspace{5mm}
+	\begin{figure}[H] 	\centering
+	\includegraphics[width=.75\textwidth]{imagenes/img47.png}
+\end{figure}
+
+\vspace{5mm} En la figura se observa que el mínimo, de valor 1 200 000 \euro$\,$ se  alcanza en el vértice A(4,2), por lo que \emph{para minimizar costes es necesario que el avión del modelo A vuele 4 meses y el del modelo B vuele 2 meses. El coste de combustible ascenderá a 1 200 000 \euro.}
+	
+
+	
+	
+\vspace{10mm}
+\begin{ejemplo}
+\begin{ejer}
+	Una empresa constructora cuenta con 60 000 m$^2$ disponibles para urbanizar. Decide construir dos tipos de viviendas unifamiliares: una, en parcelas de 200 m$^2$ para familias de 5 miembros y cuyo precio será de 150 000 \euro; otra, en parcelas de 300 m$^2$ para familias de 4 miembros de coste 200 000 \euro.
+	
+	Las autoridades del municipio le imponen las siguientes condiciones para la urbanización:
+	
+	--- El número de casas no puede superar las 225.
+	
+	--- El número de habitantes esperado no puede sobrepasar el millar.
+	
+	?`Cuántas viviendas de cada tipo han de fabricarse para maximizar los ingresos?
+	
+\end{ejer}	
+\end{ejemplo}
+
+\vspace{5mm}
+Resumimos el problema en una tabla:
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccc}
+Viviendas tipo 1: & \textbf{x} & 200 m2 & 5 miembros & 150 000 euro \\
+Viviendas tipo 2: & \textbf{y} & 300 m2 & 4 miembros & 200 000 euro \\ \cline{2-4}
+ & \begin{tabular}[c]{@{}c@{}}no superar\\ 225 casas\end{tabular} & \begin{tabular}[c]{@{}c@{}}60000 m2\\ urbanizadles\end{tabular} & \begin{tabular}[c]{@{}c@{}}no superar\\ 1000 habitantes\end{tabular} &  \\ \\ \hline  \\
+\multicolumn{5}{l}{\textit{Función objetivo:  z = 150 000 x + 200 000 y ;   maximizar}}
+\end{tabular}
+\end{table}
+
+
+
+\vspace{5mm} Restricciones: $\ x\ge 0; 	\ \  y\ge 0;	\quad x+y\le 225; \quad 200x+300y\le 60000 ;\qquad 5x+4y\le 1000$
+
+\vspace{5mm}
+	\begin{figure}[H] 	\centering
+	\includegraphics[width=.9\textwidth]{imagenes/img48.png}
+\end{figure}
+
+
+
+\vspace{5mm}
+Al representar las restricciones obtenemos un recinto cerrado. Aplicamos el método analítico: calculamos los vértices del recinto y tabulamos la función objetivo en ellos.	
+	
+	
+\vspace{5mm}
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc|c|cc}
+\cline{2-6}
+\multicolumn{1}{c|}{\textbf{}} & \multicolumn{1}{c|}{\textbf{A}} & \textbf{B} & \textbf{C} & \multicolumn{1}{c|}{\textbf{D}} & \multicolumn{1}{c|}{\textbf{E}} \\ \cline{2-6} 
+\multicolumn{1}{c|}{} & \multicolumn{1}{c|}{0} & 0 & \textbf{75} & \multicolumn{1}{c|}{100} & \multicolumn{1}{c|}{200} \\ \cline{2-6} 
+\multicolumn{1}{c|}{} & \multicolumn{1}{c|}{0} & 200 & \textbf{150} & \multicolumn{1}{c|}{125} & \multicolumn{1}{c|}{0} \\ \hline
+\multicolumn{1}{c|}{\textbf{Ingresos}:} & \multicolumn{1}{c|}{0} & \begin{tabular}[c]{@{}c@{}}40 \\ millones \euro \end{tabular} & \textbf{\begin{tabular}[c]{@{}c@{}}41.25\\  millones \euro \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}40 \\ millones \euro \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}30\\ millones \euro \end{tabular}} \\ \hline
+ &  &  & \textbf{máximo} &  & 
+\end{tabular}
+\end{table}
+	
+\emph{Los máximos ingresos, 41 250 000 \euro, se obtienen al fabricar 75 viviendas de tipo 1 (200 m$^2$ y 5 miembros) y 150 viviendas de tipo 2 (300 m$^2$ y 4 miembros).}
+	
+	
+	
+	
+\vspace{15mm}			
+\subsection{Ejercicios propuestos}
+	\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (3.5,.01);
+	\fill [left color=teal!50, right color=green!50] (3.5,0) rectangle (7.5,.01);
+	\end{tikzpicture}
+	\vspace{10mm}
+
+
+\begin{adjustwidth}{20pt}{10pt}
+\begin{enumerate}[PB. 1. ]	
+	 
+\item Encuentra los vértices del recinto definido por $\ x-y\le 4$; $\ 2x+y\ge 0$; $\ x\le 3$; $\ y\le 0$\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ Reinto cerrado, cuadrilátero: (0,0); (3,0); (3,-1) y (4/3,-8/3) }}}\vspace{1cm}			
+		
+\item Maximiza la función $\ z=40x+50y\ $ sujeta a las restricciones: $\ \ 2x+5y\le 50$; $\ 5x+2y\le 60$; $\ 3x+5y\le 55$; $\ x+y\le 18$; $\ x\ge 0$; $\ y\ge 0$\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ $z_{max}=650$, en (10,5) }}}\vspace{1cm}
+
+
+\item Optimiza la función $\ z=2x+y\ $ sujeta a las restricciones: $\ 0\le x \le 6$; $\ 0\le y \le 10$; $\ 8\le 2x+y \le 16$
+
+\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{Min de valor 8 en los infinitos puntos del segmento de vértices (0,8) y (4,0)}}}
+
+\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ Max de valor 16 en los infinitos puntos del segmento de vértices (3,10) y (6,4) }}}\vspace{1cm}
+
+\item Máximo y mínimo de $\ z=3x+4y\ $ en el recinto: $\ \ x-2y\ge 0$; $\ 2x-y\le 0$; $\ x+y\ge 0$
+\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ Región de soluciones factibles \emph{vacía}. Problema sin solución }}}\vspace{1cm}
+
+
+\item Optimiza $z=2x-8y\ \ $ en $\ \ 3x-2y\le 12$; $\ x-4y\le -20$; $\ x+2y\ge 0$; $\ 3x+2y\le 24$; $\ x\ge 0$; $\ y\ge 0$\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ Max 8 en (4,0); min -40 en segmento (0,5) a (4,6) }}}\vspace{1cm}
+
+
+\item Optimiza $\ z=4x+3y\ $ en $\ \ \begin{cases} \ x+2y\ge 6 \\ \ 3x+2y\ge 12 \\ \ x\ge 0;\ \ y\ge 0 \end{cases}$\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ Recinto no acotado: min 16.5 en (3,3/2); no se alcanza el max. }}}\vspace{1cm}
+
+
+
+\item Maximiza la función $\ z = 3x + 2y\ $, sujeta a las restricciones: $x \ge 1 $, $\ y \ge 2$, $\ 3y \le 24 - 2x$, $ \ y + 2x \le 12$\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ El máximo se alcanza en el punto C(3,6) y vale 21 }}}\vspace{1cm}
+
+
+\item  Optimiza la función $\ z=4y-x$, sujeta a las restricciones: $\ - 2x + y \le 3$; $\  2x - y \le  2 \ \ $  y $\ \   x + 2 y \le  4$
+\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ Máximo de valor 46/5 en (-3/5,11/5); el mínimo no se alcanza. }}}\vspace{1cm}
+
+\item Maximiza $\ z=3x+4y\ $ sujeta a  $\ \begin{cases} \ x+y\ge 0; & \ 2x+3y\ge 36 \\ \ 8x+2y\ge 32; & \ 2x+2y \ge 28 \end{cases}$
+
+?`Hay alguna restricción superflua?\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ No se alcanza el máximo; $\ x+y\ge 0 \ $ es \emph{superflua} }}}\vspace{1cm}
+
+
+\item Minimiza $\ z=2x+8y\ $. sujeta a las restricciones: $\ x\ge 0; \ y\ge 0$; $\ 2x+4y\ge 8$; $\ 2x-5y\le 0$; $\ x-5y\ge -5$\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ Mínimo de valor 104/9 en el punto (20/9,8/9) }}}\vspace{1cm}
+
+
+
+\item Para tu cumpleaños quieres invitar a chucherías a tus 31 compañeros de clase y te han dado una propina de 10 \euro $\,$. Quieres comprar regalices que valen 0,15 \euro /unidad y caramelos que valen \euro /unidad, además quieres dar a cada compañero, al menos, 2 regalices y a tus 4 mejores amigos, al menos, también un caramelo. Si quiero comprar la mayor cantidad de chucherías ?`Cuál es la mejor opción que tengo, es decir, cuántos caramelos y regalices tendré que comprar para comprar la mayor cantidad de chucherías posibles?\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ El número máximo de chucherías es de 69, 62 regalices y 7 caramelos. }}}\vspace{1cm}
+
+
+
+
+
+
+\item Desde los almacenes A y B, se distribuye todos los días fruta a tres mercados de una cuidad. El almacén A tiene una capacidad de 10 toneladas de fruta y el B de 15 toneladas de fruta, que se reparten en su totalidad. Los mercados 1 y 2 necesitan 8 toneladas de fruta diarias y el mercado 3 necesita 9 toneladas al día. El coste del transporte del Almacén A hasta los mercados 1, 2 y 3 es de 10 \euro $\,$, \euro 15 \euro $\,$ y 20 \euro $\,$ respectivamente, mientras que desde el mercado B es de 15 \euro $\,$, 10 \euro $\,$ y 10 \euro $\,$ también respectivamente. ?´Cómo debe ser la distribución de fruta para que el coste sea mínimo? ?Cuánto costará esa distribución?
+
+\vspace{3mm}
+\textcolor{gris}{
+Solución:}
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+\begin{table}[H]
+\footnotesize
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+{\color[HTML]{9B9B9B} \begin{tabular}[c]{@{}l@{}}$\leftarrow$ Destino \\ $\downarrow$ Origen\end{tabular}} & \multicolumn{1}{l|}{{\color[HTML]{9B9B9B} Mercado 1}} & \multicolumn{1}{l|}{{\color[HTML]{9B9B9B} Mercado 2}} & \multicolumn{1}{l|}{{\color[HTML]{9B9B9B} Mercado 3}} \\ \hline
+{\color[HTML]{9B9B9B} Almacén 1} & {\color[HTML]{9B9B9B} 8 T} & {\color[HTML]{9B9B9B} 2 T} & {\color[HTML]{9B9B9B} 0} \\ \hline
+{\color[HTML]{9B9B9B} Almacén 2} & {\color[HTML]{9B9B9B} 0} & {\color[HTML]{9B9B9B} 6 T} & {\color[HTML]{9B9B9B} 9 T} \\ \hline
+\multicolumn{4}{|l|}{{\color[HTML]{9B9B9B} Coste mínimo: $\ 260 \ $}} \\ \hline
+\end{tabular}
+\end{table} 
+
+
+
+
+\item Una fábrica produce lavadoras de dos tipos de modelos L1 y L2. El modelo L1 necesita 3 horas de montaje y 3 horas de acabado, mientras que el modelo L2 necesita las mismas horas de montaje que el modelo anterior pero el doble de acabado. Con todos los trabajadores de la empresa de la sección de montaje, se disponen de 120 horas diarias para esta labor, y con los de la sección de acabado se tienen 180 horas al día. El beneficio por cada lavadora L1 es de 200€ y por cada lavadora L2 400 \euro. ?`Cuántas lavadoras de cada modelo debe fabricar la empresa diariamente para obtener mayor beneficio? ?Cuál será ese beneficio?
+\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ que sean números enteros. El beneficio óptimo es de  12000 \euro. }}}
+
+\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ 
+Hay $\infty$ soluciones, puntos del segmento de vértices (20,20) y (0,30), }}}\vspace{1cm}
+
+
+
+
+\item Para desinfectar una piscina se necesitan un mínimo de 24 litros de un producto A, y un mínimo de 25 litros de un producto B. Para elaborar el desinfectante existen dos tipos de líquidos, el líquido R y el líquido S, que cuestan 10 y 30 euros el litro de cada uno de ellos, respectivamente. La composición de R hay un 10\% de A y un 50\% de B, y el la de S hay un 40\% de A y un 10\% de B. ?Cuántos litros de cada uno de los líquidos se necesitan para desinfectar la piscina con el mínimo coste posible?\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ 40 litros de líquido R y 50 litros de líquido S, con un coste de 1900 \euro . }}}\vspace{1cm}
+
+
+
+\item Un granjero está elaborando una dieta para sus animales mezclando piensos de tipo R y S, el precio de ambos piensos es de 3 \euro /kg. Quiere que esta dieta tenga al menos 2 mg de vitamina A, 3 mg de vitamina B, 30 mg de vitamina C y 2 mg de vitamina D. El contenido vitamínico de un kg de pienso R es 1 mg de A, 1 mg de B, 20 mg de C y 2 mg de D, y el de un kg de pienso S es 1 mg de A, 3 mg de B, 7.5 mg de C y 0 mg de D. ?`Cómo deben mezclarse los piensos para que el coste sea mínimo? ?Cuánto costará el kg de ese pienso?
+\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ estén en el segmento que unen los siguientes vértices (1.2,0.8) y (1.5,0.5)
+}}}
+
+\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{  El pienso costará 2€/kg y la composición podrá ser cualquiera cuyos puntos }}}\vspace{1cm}
+
+
+
+
+\item Un pastelero elabora dos tipos de pasteles de chocolate, uno de chocolate negro y otro de chocolate blanco. Por cada pastel de chocolate blanco obtiene un beneficio de 2 \euro $\,$ y por cada uno de chocolate blanco obtiene un beneficio de 1.5 \euro. Para cubrir los gastos de las pastelería necesita ganar al día un mínimo de 200 \euro. ?`Cuántos pasteles de cada tipo debe vender para conseguir el máximo beneficio?\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ \begin{footnotesize} No hay solución óptima, la función objetivo puede crecer infinitamente dentro de la región factible. \end{footnotesize} }}}\vspace{1cm}
+
+
+
+\item Un estudiante reparte propaganda publicitaria en su tiempo libre. La empresa A le paga 0,05 \euro $\,$ por impreso repartido y la empresa B, con folletos más grandes, le paga 0,07 \euro $\,$ por impreso. El estudiante lleva dos bolsas: una para los impresos de tipo A, en la que le caben 120, y otra para los de tipo B, en la que caben 100. Ha calculado que cada día puede repartir 150 impresos como máximo. ?Cuántos impresos habrá de repartir de cada clase para que su beneficio diario sea máximo?\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ 50 de A y 100 de B, para ganar 9.50 \euro. }}}\vspace{1cm}
+
+
+
+
+\item En un problema de programación lineal, la región factible es la región acotada cuyos vértices son A(2, –1) B(–1, 2) C(1, 4) D(5, 0). La función objetivo es la función $f(x, y) = 2x + 3y + k$ cuyo valor máximo, en dicha región, es igual a 19. Calcule el valor de k e indique dónde se alcanza el máximo y dónde el mínimo.
+\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ \begin{footnotesize} Ayuda: la función objetivo pasa por todos los vértices del recinto. \end{footnotesize}}}}
+
+\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ Mínimo en A, máximo en C y k=5 }}}\vspace{1cm}
+
+
+
+
+\item Un distribuidor de software informático tiene en su cartera de clientes tanto a empresas como a particulares. Ha de conseguir al menos 25 empresas como clientes y el número de clientes particulares deberá ser como mínimo el doble que el de empresas. Por razones de eficiencia del servicio postventa, tiene estipulado un límite global de 120 clientes anuales. Cada empresa le produce 386 € de beneficio, mientras que cada particular le produce 229 € ?`Qué combinación de empresas y particulares le proporcionará el máximo beneficio? ?A cuánto ascenderá ese beneficio?\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ 40 empresas y 80 particulares con un beneficio de 33760 \euro }}}\vspace{1cm}
+
+
+
+\item Una empresa fabrica dos tipos de productos A y B, y vende todo lo que
+ produce obteniendo un beneficio unitario de 500 \euro $\,$ y 600 \euro $\,$ respectivamente. Cada producto pasa por dos procesos de fabricación, P1 y P2.
+
+Una unidad del producto A necesita 3 horas en el proceso P1, mientras que una del producto B necesita 5 horas en ese proceso. La mano de obra contratada permite disponer, como máximo, de 150 horas semanales en P1 de 120 horas en P2. Además, son necesarias 3 horas en P2 para fabricar una unidad de cada uno de los productos.
+
+?`Cuál es el máximo beneficio semanal que puede obtener la empresa? ¿Cuánto debe fabricar de cada producto para obtener ese beneficio?\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ Debe fabricar 25 unidades del tipo A y 15 del B con un beneficio de 21500 \euro }}}\vspace{1cm}
+
+
+
+
+\item Una empresa fabrica dos tipos de agua de colonia, A y B.
+ La colonia A contiene un 5\% de extracto de rosas y un 10\% de alcohol, mientras que la B se fabrica con un 10\% de extracto de rosas y un 15\% de alcohol.
+ 
+El precio de venta de la colonia A es de 24 \euro/litro y el de la B es de 40 \euro/litro.
+
+Se dispone de 70 litros de extracto de rosas y de 120 litros de alcohol.
+
+?Cuántos litros de cada colonia convendría fabricar para que el importe de la venta de la producción sea máximo?\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ Debe fabricar 600 litros del tipo A y 400 litros del B; 30400 \euro $\,$ por la venta. }}}\vspace{1cm}
+
+
+
+
+\item  Se desea invertir 100 000 € en dos productos financieros A y B que tienen una
+ rentabilidad del 2\% y del 2.5\% respectivamente.
+
+Se sabe que el producto B exige una inversión mínima de 10 000 \euro $\,$ y, por cuestiones de riesgo, no se desea que la inversión en B supere el triple de lo invertido en A.
+
+?Cuánto se debe invertir en cada producto para que el beneficio sea máximo y cuál sería dicho beneficio?\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ \begin{small} Debe invertir 25 000 \euro $\,$ en A y 75 000 \euro $\,$ en B obteniendo un beneficio máximo de 2 375 \euro. \end{small} }}}\vspace{1cm}
+
+
+
+
+\item Un mayorista vende productos congelados que presenta en envases de dos tamaños, pequeños y grandes. La capacidad de sus congeladores no le permite almacenar más de 1000 envases en total. En función de la demanda sabe que debe mantener un stock mínimo de 100 envases pequeños y 200 envases grandes. La demanda de envases grandes es igual o superior a la de envases pequeños. El coste por almacenaje es de 10 céntimos de euro por cada envase pequeño y de 20 céntimos de euro por cada envase grande. ?Qué número de envases de cada tipo proporciona el mínimo coste de almacenaje?\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ 100 envases pequeños y 200 grandes con un cos te de 50 \euro }}}\vspace{1cm}
+
+
+
+
+\item En una carpintería se construyen dos tipos de estanterías: grandes y pequeñas, y se tienen para ello 60 m$^2$ de tableros de madera. Las grandes necesitan 4 m$^2$ de tablero y las pequeñas 3 m$^2$.
+
+El carpintero debe hacer como mínimo 3 estanterías grandes, y el número de pequeñas que haga debe ser, al menos, el doble del número de las grandes.
+
+Si la ganancia por cada estantería grande es de 60 euros y por cada una de las pequeñas es de 40 euros, ?cuántas debe fabricar de cada tipo para obtener el máximo beneficio?\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ 6 estanterías grandes y 12 pequeñas; beneficio 840 \euro. }}}\vspace{1cm}
+
+
+
+\item La candidatura de un determinado grupo político para las elecciones
+municipales debe cumplir los siguientes requisitos: el número total de componentes de la candidatura debe estar comprendido entre 6 y 18 y el número de hombres (x) no debe exceder del doble del número de mujeres (y).
+
+?`Cuál es el mayor número de hombres que puede tener una candidatura que cumpla esas condiciones?\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ 12 hombres }}}\vspace{1cm}
+
+
+\begin{comment}
+
+
+\item Enun\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ sol }}}\vspace{1cm}
+
+
+
+\item Enun\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ sol }}}\vspace{1cm}
+
+
+
+\item Enun\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ sol }}}\vspace{1cm}
+
+
+
+\item Enun\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ sol }}}\vspace{1cm}
+
+
+
+\item Enun\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ sol }}}\vspace{1cm}
+
+
+
+\item Enun\hspace{-15mm}\rotatebox{180}{\leftline{\textcolor{gris}{ sol }}}\vspace{1cm}
+
+\end{comment}
+
+
+
+\end{enumerate}
+\end{adjustwidth}
+
+
+
+\vspace{10mm}
+\section{Curiosidades}
+\begin{tikzpicture}
+	\fill [left color=red!50, right color=teal!50] (0,0) rectangle (3.5,.05);
+	\fill [left color=teal!50, right color=green!50] (3.5,0) rectangle (7.5,.05);
+	\end{tikzpicture}
+
+\vspace{5mm}
+\begin{myexampleblock}{
+Dantzig: pensamiento positivo y programación lineal}
+
+\vspace{3mm} La programación lineal surgió en la Segunda Guerra Mundial con el objetivo de reducir los costos del ejército y aumentar las pérdidas del enemigo
+
+\vspace{3mm} George Bernard Dantzig fue un profesor de computación, físico y matemático estadounidense. Su padre era un matemático ruso que trabajó con Poincaré en París y que acabó emigrando a Estados Unidos. Dantzig fue galardonado con diversos premios como, por ejemplo, el premio de Teoría John von Neumann, por su trabajo sobre programación lineal. Falleció en 2005 por diabetes, a la edad de 90 años.
+
+
+\vspace{3mm} Cierto día, cuando estudiaba en la Universidad de Berkeley, Dantzig llegó tarde a clase y se encontró en la pizarra dos problemas estadísticos que el profesor había puesto como ejemplos de problemas aún no resueltos, pero él pensó que eran problemas de clase. Aunque le costó más de lo que esperaba, finalmente encontró la solución ya que al ser trabajos de clase pensó que la solución debía ser asequible. Dantzig entregó los ejercicios pensando que los entregaba fuera de plazo. Pocos días después, el profesor le visitó para anunciarle que lo que había resuelto no eran ejercicios de clase sino problemas que nadie había conseguido resolver y le propuso publicar una de sus soluciones en una revista científica.
+
+
+\vspace{3mm} La anécdota, que fue confirmada por el protagonista, se extendió como ejemplo del poder del pensamiento positivo, ya que seguramente Dantzig no hubiera encontrado la solución si hubiese sabido que eran problemas complejos que nadie había conseguido solucionar. Se cuenta que incluso el párroco de la zona ensalzaba este hecho en sus homilías y que Dantzig se enteró de ello por casualidad a través de un amigo.
+
+\vspace{3mm} Pero la mayor contribución que este matemático hizo a la humanidad fue su algoritmo Simplex para resolver problemas de optimización en programación lineal, el cual fue elegido como uno de los diez algoritmos más importantes del siglo XX (SIAM News, Vol. 33-4). La programación lineal surgió en la Segunda Guerra Mundial con el objetivo de reducir los costos del ejército y aumentar las pérdidas del enemigo. Al parecer el algoritmo Simplex fue usado en secreto por el ejército hasta que fue publicado en 1947. A partir de esa fecha muchas empresas lo han usado y aún hoy se usa para resolver multitud de problemas reales. \footnote{JOSÉ GALINDO,  editor de BlogSOStenible, artículo en `El país'.}
+\end{myexampleblock}
+
+\newpage $\,$ \section*{ \textcolor{white}{.}}
+
+\newpage $\,$
+
