@@ -1,0 +1,323 @@
+\PassOptionsToPackage{svgnames}{xcolor} %para los myblock - ha de estar al principio 
+\documentclass[a4paper, 12pt, spanish]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{float} %posicionar figuras
+\usepackage{multicol}
+\usepackage{multirow} % esto hará falta para figuras casi seguro
+\usepackage{amsmath} %ecuaciones bien
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx} %opciones /includegraphics[...]
+\usepackage{indentfirst} % sangria de primera linea
+
+\setlength{\parindent}{0 mm} %elimina sangrado primera línea - recuperarla--> 5 mmm
+
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{esint} % integrales mejor
+\usepackage[top=2.5cm, bottom=2.2cm, left=2.7cm, right=2.5cm]{geometry} % márgenes (para encuadernado-book: impares más a la izquda, pares más a la dcha.
+\usepackage{comment} % comment environment
+\usepackage{physics}
+\usepackage{enumerate}
+\usepackage{comment} % comentarios
+\usepackage{accents}
+\usepackage{pdfpages} %insertar pdfs
+\usepackage{ragged2e} % para  \justifying después de fcolorbox-parbox
+\usepackage{mathtools} 
+\usepackage{eurosym} % para el euro
+
+
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+\usepackage{venndiagram}
+
+\usepackage{pgfplots} % para dibujar histogramas
+
+
+%gaussianas*************************
+\usepackage{amssymb, amsmath} %*****
+\pgfplotsset{compat=1.7} %**********
+%***********************************
+
+
+
+\usepackage{changepage } % sangrados párrafo
+
+
+
+\widowpenalty10000
+\clubpenalty10000
+\setcounter{tocdepth}{3}
+
+%FLOAT EQNS LEFT
+\usepackage{nccmath} 
+\makeatletter
+\newcommand{\leqnomode}{\tagsleft@true}
+\newcommand{\reqnomode}{\tagsleft@false}
+\makeatother
+
+%nuevos colores - ahora tengo los "svgnames Colors"
+\definecolor{roig}{RGB}{196,49,24}
+\definecolor{morat}{RGB}{131,54,147}
+\definecolor{verd}{RGB}{85,107,47}
+\definecolor{gris}{RGB}{100,100,100}
+\definecolor{blau}{RGB}{0,0,100}
+\definecolor{fondoblau}{RGB}{232,255,255}
+\definecolor{fondoroig}{RGB}{245,194,194}
+\definecolor{fondoverd}{RGB}{209,240,192}
+
+\newcommand{\subrayado}[1]{\colorbox{LightYellow}{$\displaystyle #1$}} %fosforito ecuaciones begin{eq...    \subrayado{.......}
+
+
+	
+\newtheorem{teor}{Teorema}
+\newtheorem{coro}{Corolario}
+\newtheorem{prop}{Proposición}
+\newtheorem{defi}{Definición}
+\newtheorem{axio}{Axioma}
+\newtheorem{ejem}{Ejemplo}
+\newtheorem{ejer}{Ejercicio}
+\newtheorem{ejre}{Ejercicio resuelto}
+\newtheorem{ayud}{Ayuda.}
+\newtheorem{solu}{Solución.}
+\newtheorem{prob}{Problema}
+
+\numberwithin{equation}{chapter}
+\numberwithin{teor}{chapter}
+\numberwithin{coro}{chapter}
+\numberwithin{prop}{chapter}
+\numberwithin{defi}{chapter}
+\numberwithin{axio}{chapter}
+\numberwithin{ejem}{chapter}
+\numberwithin{ejer}{chapter}
+\numberwithin{ejre}{chapter}
+\numberwithin{ayud}{chapter}
+\numberwithin{solu}{chapter}
+\numberwithin{prob}{chapter}
+
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{%
+\markboth{\thechapter.\ #1}{}}
+\fancyhead{}
+\fancyhead[LO]{\MakeUppercase{\leftmark}}
+\fancyhead[RE]{\nouppercase{\rightmark}}
+\fancyhead[LE, RO]{\footnotesize{\textcolor{gris}{Ignacio Vallés Oriola}}}
+
+\usepackage{soul} %tachado, usando \textst{lo que se desea tachar} No vale en ecuaciones.
+\usepackage[makeroom]{cancel} % tachar en equaciones \cancel{a tachar}; \bcancel tacha al revés ; \xcancel tacha con x; \cancelto {0 (o \infty}{expresion a tachar} flecha con 0 o infty
+
+
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+% myblocks
+% \PassOptionsToPackage{svgnames}{xcolor}   ---- en primera línea - para que coja estos colores de raros nombres
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usetikzlibrary{shadings,shadows}
+    
+\newenvironment{myexampleblock}[1]{% Verde
+    \tcolorbox[beamer,%
+    noparskip,breakable,
+    colback=Honeydew,colframe=DarkGreen,%
+    colbacklower=LimeGreen!75!Honeydew,%
+    title={#1}]}%
+    {\endtcolorbox}
+ 
+\newenvironment{myalertblock}[1]{% Rojo
+    \tcolorbox[beamer,%
+    noparskip,breakable,
+    colback=LavenderBlush,colframe=DarkRed,%
+    colbacklower=Tomato!75!LavenderBlush,%
+    title={#1}]}%
+    {\endtcolorbox}
+
+    
+  \newenvironment{myblock}[1]{% Azul
+    \tcolorbox[beamer,%
+    noparskip,breakable,
+    colback=AliceBlue,colframe=DarkBlue,%
+    colbacklower=DarkBlue!75!AliceBlue,%
+    title={#1}]}%
+    {\endtcolorbox}
+
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ tcolorbox
+
+% añado
+% beamer,% 
+%noparskip,breakable,
+% antes de colback
+% para que continue cuadro en varias páginas
+
+
+%TEOREMA.redondeado.rojo
+\newtcolorbox[auto counter,number within=chapter]{theorem}[2][]{noparskip,breakable,colback=red!2!white,colframe=white!30!orange,fonttitle=\bfseries,title=T. ~\thetcbcounter: #1}
+
+%DEFINICIÓN.redondeada.azul
+\newtcolorbox[auto counter,number within=chapter]{definition}[2][]{noparskip,breakable,colback=white!98!cyan,colframe=cyan!30!gray,fonttitle=\bfseries,title=D. ~\thetcbcounter: #1}
+
+%EJEMPLO.redondeado.verde	
+\newtcolorbox[auto counter,number within=chapter]{example}[2][]{noparskip,breakable,colback=lime!2!white,colframe=lime!70!black,fonttitle=\bfseries,title=Ejemplo~\thetcbcounter: #1}
+
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
+%MIS parafillos destacadetes %%%%%%%%%%%%%%%%%%% 
+%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    
+%párrafo groget (sangrado francés) DESTACADOF
+   \usepackage{mdframed}
+   \usepackage{xcolor}
+   
+   \newenvironment{destacadof}
+      {\begin{mdframed}[
+        backgroundcolor=LightYellow!50,
+        linecolor=Gray]\quotation}
+        % ]\quotation}
+   {\endquotation\end{mdframed}}
+   
+ %párrafo groget (sangrado) DESTACADO
+
+   \newenvironment{destacado}
+      {\begin{mdframed}[
+        backgroundcolor=LightYellow!50,
+        linecolor=Gray]}
+   {\endquotation\end{mdframed}}
+
+\begin{comment}
+% Cuadros texto bordes no-redondeados; no los uso, en su lugar uso los '\newtcolorbox' de arriba. Dentro de ellos se puede poner \begin{teor, defi, ..}, lo que sea
+   
+   %párrafo tarongeta - (sin sangrado) TEOREMA
+   \newenvironment{teorema}
+      {\begin{mdframed}[
+        backgroundcolor=Wheat!20,
+        linecolor=Gray]}
+   {\endquotation\end{mdframed}}
+ 
+    %párrafo verdet - (sin sangrado) DEFINICION
+   \newenvironment{definicion}
+      {\begin{mdframed}[
+        backgroundcolor=PaleGreen!10,
+        linecolor=Gray]}
+   {\endquotation\end{mdframed}}  
+\end{comment}
+
+ %párrafo griset - (sin sangrado) EJEMPLO
+   \newenvironment{ejemplo}
+      {\begin{mdframed}[
+        backgroundcolor=LightGrey!20,
+        linecolor=Gray]}
+   {\endquotation\end{mdframed}}	
+   
+\renewcommand{\baselinestretch}{1.2} %interlineado
+\setlength{\parskip}{2mm} %espacio entre párrafos
+
+
+
+
+\title{Probabilidad y Estadística.} 
+%	\\
+% -  \\ 
+%\large{(ampliado)}}
+
+\author{Ignacio Vallés Oriola.}
+\date{}
+
+\setcounter{tocdepth}{2} %hasta segundo nivel secc
+
+
+%\rotatebox{180}{\leftline{\textcolor{gris}{texto a escribir }}}
+% $\divideontimes$ ejercicio difÃ­cil
+%!!!!!!!Texto escrito de dcha a izqda en cualquier parte del texto.
+%*************. \boldsymbol{$fórmula en negrita$}
+% ********  numero tachado horizontalmente --  $\text{\textst{5}}$
+
+
+
+\spanishdecimal{.}
+
+% Para resúmenes
+\newenvironment{resumen}
+{
+\begin{center}
+\textbf{Resumen}.  
+\end{center}
+\begin{quote}\itshape
+}
+{
+\end{quote}
+}
+
+\usepackage{lipsum}
+%***************************************************
+
+% BASTA CON PONER:  \begin{changemargin}{1cm}{1cm}
+                    % Párrafo a sangrar
+                    %\end{changemargin}    
+%*********************************************************
+
+
+% CITAS alineado derecha con pie autor - con \begin{\cita}{Autor} cita-txt \end{cita}
+\newenvironment{cita}[1]
+{
+\def\autorc {#1}
+\begin{flushright}
+\itshape
+}
+{
+\par
+\medskip
+\autorc
+\end{flushright}
+}
+
+
+
+
+%\includeonly{TEMA01_Chapter,TEMA99_chapter} %para ver solo esto, o VARIOS separado por comas
+
+%********************************************
+%******** CUERPO DEL DOCUMENTO **************
+%********************************************
+
+\begin{document}
+
+\begin{titlepage}
+	\centering
+	\vspace*{\fill}
+	{\scshape\LARGE PROGRAMACIÓN LINEAL (avanzada) PARA BACHILLERATO\par}
+	\vspace{1cm}
+	{\Large Ignacio Vallés Oriola \par}
+	\vspace{3cm}
+	\includegraphics[width=0.75\textwidth]{imagenes/hic-svnt-dracones}
+	\vspace{3cm}
+\end{titlepage}
+
+\tableofcontents
+
+%\include{TEMA00_chapter}
+\include{TEMA01_chapter}
+%\include{TEMA02_chapter}
+%\include{TEMA03_chapter}
+%\include{TEMA04_chapter}
+%\include{TEMA05_chapter}
+%\include{TEMA06_chapter}
+%\include{TEMA07_chapter}
+%\include{TEMA08_chapter}
+%\include{TEMA09_chapter}
+%\include{TEMA10_chapter}
+%\include{TEMA99_chapter}
+%\appendix
+%\include{APENDICES}
+		
+\end{document}
